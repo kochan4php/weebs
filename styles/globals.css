@@ -30,9 +30,13 @@ body {
   transform: translateX(2px) translateY(3px);
 }
 
+nav ul {
+  /* transform: translateX(10000px); */
+}
+
 /* When Hamburger Menu On Click */
 nav ul.slide {
-  transform: translateX(0);
+  transform: translateX(-1.3rem);
 }
 
 .hamburger-active ~ span:nth-child(2) {

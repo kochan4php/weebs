@@ -3,9 +3,8 @@ import Link from "next/link";
 
 const routes = [
   { path: "/", name: "Home" },
-  { path: "/#about", name: "About" },
-  { path: "/#anime", name: "Anime" },
-  { path: "/#novel", name: "Novel" },
+  { path: "/anime", name: "Anime" },
+  { path: "/novel", name: "Novel" },
   { path: "/characters", name: "Characters" },
 ];
 
@@ -15,19 +14,20 @@ const Navbar = () => {
     const toggle = document.getElementById("toggle");
     const navUl = document.querySelector("nav ul");
 
-    window.onscroll = function () {
-      if (window.pageYOffset > 0) {
-        navbar.classList.add("navbar-fixed");
-        navUl.classList.remove("bg-opacity-30");
-      } else {
-        navbar.classList.remove("navbar-fixed");
-        navUl.classList.add("bg-opacity-30");
-      }
-    };
+    // window.onscroll = function () {
+    //   if (window.pageYOffset > 0) {
+    //     // navbar.classList.add("navbar-fixed");
+    //     // navUl.classList.remove("bg-opacity-30");
+    //   } else {
+    //     // navbar.classList.remove("navbar-fixed");
+    //   //   navUl.classList.add("bg-opacity-30");
+    //   // }
+    // };
 
     toggle.addEventListener("click", function () {
       this.classList.toggle("hamburger-active");
       navUl.classList.toggle("slide");
+      document.body.classList.toggle("overflow-y-hidden");
     });
 
     window.addEventListener("click", function (e) {
@@ -39,15 +39,15 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-transparent py-2 z-[999] fixed w-full transition-all duration-300 text-white border-b border-b-transparent">
+    <nav className="bg-slate-800 py-2.5 z-[999] w-full transition-all duration-300 text-white border-b border-b-transparent relative border-b-slate-600">
       <div className="container flex justify-between items-center py-1 relative">
         <div>
           <h1 className="text-center text-sky-300 font-semibold text-3xl">
-            Hello Weebs
+            Weebs
           </h1>
         </div>
 
-        <ul className="flex md:w-[60%] lg:w-[50%] absolute sm:static sm:flex-row sm:bg-transparent sm:justify-evenly md:justify-between lg:justify-evenly text-lg font-semibold right-0 flex-col bg-slate-800 bg-opacity-30 sm:bg-opacity-0 sm:backdrop-blur-none backdrop-blur-xl min-h-screen sm:min-h-0 top-0 justify-evenly items-center -z-[1] sm:z-[99] w-[73%] translate-x-[100%] sm:translate-x-0 transition-all duration-300">
+        <ul className="flex md:w-[60%] lg:w-[50%] absolute sm:static sm:flex-row sm:bg-transparent sm:justify-evenly md:justify-between lg:justify-evenly text-lg font-semibold right-0 flex-col bg-transparent shadow-md sm:shadow-none shadow-slate-600 sm:bg-opacity-0 sm:backdrop-blur-none backdrop-blur-xl h-[70vh] sm:h-0 top-[75px] bottom-0 justify-evenly items-center -z-[199] sm:z-[99] w-[65%] translate-x-96 sm:translate-x-0 transition-all duration-300 rounded-md border border-slate-600 sm:border-none">
           {routes.map(({ path, name }, index) => (
             <li key={index}>
               <Link href={path}>
