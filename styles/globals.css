@@ -17,9 +17,9 @@ body {
 }
 
 /* When Window On Scroll */
-.navbar-fixed {
-  @apply fixed opacity-100 bg-slate-800 bg-opacity-30  backdrop-blur-2xl text-fuchsia-100 border-b-slate-600;
-}
+/* .navbar-fixed {
+  @apply opacity-100 bg-slate-800 bg-opacity-50  backdrop-blur-2xl text-fuchsia-100 border-b-slate-600;
+} */
 /* When Window On Scroll */
 
 .hamburger-line {
@@ -110,3 +110,7 @@ nav ul.slide {
   }
 }
 /* Loading Animation */
+
+.custom-shadow {
+  box-shadow: inset 0 -60px 120px rgb(0 0 0 / 80%);
+}
