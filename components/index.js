@@ -1,7 +1,8 @@
 import Navbar from "./Navbar";
-import Intro from "./Intro";
+import Hero from "./Hero";
 import Button from "./Button";
 import Card from "./Card";
+import ImageComponent from "./ImageComponent";
 import FlipCardProfile from "./FlipCardProfile";
 import TitleSection from "./TitleSection";
 import Loading from "./Loading";
@@ -10,11 +11,12 @@ import Text from "./Text";
 import Synopsis from "./Synopsis";
 import Footer from "./Footer";
 export {
-  Intro,
+  Hero,
   TitleSection,
   Button,
   Navbar,
   Card,
+  ImageComponent,
   FlipCardProfile,
   Text,
   Loading,
