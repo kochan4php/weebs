@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const Anime = () => {
   return (
     <section className="min-h-screen bg-slate-800 py-10 text-white">

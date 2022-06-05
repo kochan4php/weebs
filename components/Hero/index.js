@@ -1,5 +1,5 @@
 const Hero = () => (
-  <section className="min-h-[65vh] md:min-h-[80vh] bg-slate-800 bg-opacity-30 flex flex-col justify-evenly md:justify-center px-2 md:px-6 pb-6">
+  <section className="min-h-[50vh] md:min-h-[85vh] bg-slate-800 bg-opacity-40 flex flex-col justify-evenly md:justify-center px-2 md:px-6 pb-6">
     <div className="container">
       <div className="max-w-full lg:max-w-4xl">
         <h1 className="text-slate-50 text-3xl md:text-4xl font-semibold mb-4">

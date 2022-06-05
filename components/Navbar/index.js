@@ -16,7 +16,6 @@ const Navbar = () => {
     toggle.addEventListener("click", function () {
       this.classList.toggle("hamburger-active");
       navUl.classList.toggle("slide");
-      document.body.classList.toggle("overflow-y-hidden");
     });
 
     window.addEventListener("click", function (e) {
@@ -36,7 +35,7 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <ul className="flex md:w-[60%] lg:w-[50%] absolute sm:static sm:flex-row sm:bg-transparent sm:justify-evenly md:justify-between lg:justify-evenly text-lg font-semibold right-0 flex-col bg-slate-800 bg-opacity-40 shadow-md sm:shadow-none shadow-slate-600 sm:bg-opacity-0 sm:backdrop-blur-none backdrop-blur-xl h-[70vh] sm:h-0 top-[75px] bottom-0 justify-evenly items-center -z-[199] sm:z-[99] w-[65%] translate-x-full sm:translate-x-0 transition-all duration-300 rounded-md border border-slate-600 sm:border-none">
+        <ul className="flex md:w-[60%] lg:w-[50%] absolute sm:static sm:flex-row sm:bg-transparent sm:justify-evenly md:justify-between lg:justify-evenly text-lg font-semibold right-0 flex-col bg-slate-800 bg-opacity-50 sm:bg-opacity-0 sm:backdrop-blur-none backdrop-blur-md h-[70vh] sm:h-0 top-[75px] bottom-0 justify-evenly items-center -z-[199] sm:z-[99] w-[65%] translate-x-full sm:translate-x-0 transition-all duration-300 rounded-md border border-slate-600 sm:border-none">
           {routes.map(({ path, name }, index) => (
             <li key={index}>
               <Link href={path}>

@@ -1,6 +1,5 @@
 import { Fragment } from "react";
-import Link from "next/link";
-import { Card, Hero, ImageComponent } from "../components";
+import { Card, CardImage, CardMobile, Hero } from "../components";
 import JIKAN_URL from "../config/Jikan";
 
 const Home = ({ data }) => {
@@ -8,7 +7,7 @@ const Home = ({ data }) => {
 
   return (
     <>
-      <section className="bg-slate-800 bg-[url('/img/spy.jpg')] min-h-[65vh] md:min-h-[40vh] min-w-full bg-cover bg-top bg-no-repeat">
+      <section className="bg-slate-800 bg-[url('/img/spy-mobile.webp')] md:bg-[url('/img/spy.jpg')] min-w-full bg-cover bg-top bg-no-repeat">
         <Hero />
       </section>
       <section className="min-h-screen min-w-full bg-slate-800 py-10">
@@ -22,34 +21,26 @@ const Home = ({ data }) => {
             {getAnimeNow.map((data) => {
               return (
                 <Fragment key={data?.mal_id}>
-                  <div
-                    className="md:hidden bg-cover bg-center h-full"
-                    style={{
-                      backgroundImage: `url('${data?.images?.webp?.large_image_url}')`,
-                    }}
+                  <CardMobile
+                    bgimage={data?.images?.webp?.large_image_url}
+                    path={"/"}
                   >
-                    <div className="backdrop-blur bg-slate-900 bg-opacity-30 min-h-full">
-                      <Link href="/">
-                        <div className="cursor-pointer group px-3 sm:px-5 sm:pt-8 pt-6 pb-3 relative">
-                          <ImageComponent
-                            src={data?.images?.webp?.large_image_url}
-                            alt={data?.title}
-                          />
-                          <div className="absolute -top-0 -left-0 bg-slate-100 text-slate-800 px-2 py-1 border bg-opacity-75 border-sky-500 z-50 rounded-br text-sm">
-                            <span>
-                              {data.score ? data?.score : "Unknown"}&nbsp;
-                              <span className="text-yellow-600">
-                                {data.score && "⭐"}
-                              </span>
-                            </span>
-                          </div>
-                          <a className="text-white group-hover:text-fuchsia-400 tracking-wide transition-colors duration-300 selection:bg-teal-500 selection:text-teal-800 block py-3 px-1 truncate font-medium">
-                            {data?.title}
-                          </a>
-                        </div>
-                      </Link>
+                    <CardImage
+                      src={data?.images?.webp?.large_image_url}
+                      alt={data?.title}
+                    />
+                    <div className="absolute -top-0 -left-0 bg-slate-100 text-slate-800 px-2 py-1 border bg-opacity-75 border-sky-500 z-50 rounded-br text-sm">
+                      <span>
+                        {data.score ? data?.score : "Unknown"}&nbsp;
+                        <span className="text-yellow-600">
+                          {data.score && "⭐"}
+                        </span>
+                      </span>
                     </div>
-                  </div>
+                    <a className="text-white group-hover:text-fuchsia-400 tracking-wide transition-colors duration-300 selection:bg-teal-500 selection:text-teal-800 block py-3 px-1 truncate font-medium">
+                      {data?.title}
+                    </a>
+                  </CardMobile>
 
                   <div className="hidden md:block">
                     <Card
@@ -58,7 +49,7 @@ const Home = ({ data }) => {
                       shadowSize="shadow-lg"
                       shadow="shadow-slate-800"
                     >
-                      <ImageComponent
+                      <CardImage
                         src={data?.images?.webp?.large_image_url}
                         alt={data?.title}
                       />
