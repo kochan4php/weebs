@@ -1,4 +1,6 @@
-## Weebs
+# Weebs
+
+## Setup project
 
 ```bash
 # cloning this project
