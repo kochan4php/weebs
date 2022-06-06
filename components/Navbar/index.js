@@ -12,6 +12,7 @@ const Navbar = () => {
   useEffect(() => {
     const toggle = document.getElementById("toggle");
     const navUl = document.querySelector("nav ul");
+    const inputSearch = document.getElementById("input-search");
 
     toggle.addEventListener("click", function () {
       this.classList.toggle("hamburger-active");
@@ -19,7 +20,11 @@ const Navbar = () => {
     });
 
     window.addEventListener("click", function (e) {
-      if (e.target !== navUl && e.target !== toggle) {
+      if (
+        e.target !== navUl &&
+        e.target !== toggle &&
+        e.target !== inputSearch
+      ) {
         navUl.classList.remove("slide");
         toggle.classList.remove("hamburger-active");
       }
@@ -45,6 +50,16 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
+          <li className="sm:hidden">
+            <form>
+              <input
+                type="search"
+                id="input-search"
+                placeholder="Search..."
+                className="w-44 px-4 py-1 ring rounded-full focus:outline-none focus:ring focus:ring-sky-500 bg-slate-800"
+              />
+            </form>
+          </li>
         </ul>
 
         <div className="sm:hidden relative">
