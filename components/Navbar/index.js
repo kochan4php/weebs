@@ -17,6 +17,7 @@ const Navbar = () => {
     toggle.addEventListener("click", function () {
       this.classList.toggle("hamburger-active");
       navUl.classList.toggle("slide");
+      navUl.classList.toggle("navbar-nav");
     });
 
     window.addEventListener("click", function (e) {
@@ -26,6 +27,7 @@ const Navbar = () => {
         e.target !== inputSearch
       ) {
         navUl.classList.remove("slide");
+        navUl.classList.add("navbar-nav");
         toggle.classList.remove("hamburger-active");
       }
     });
@@ -40,7 +42,7 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <ul className="flex md:w-[60%] lg:w-[50%] absolute sm:static sm:flex-row sm:bg-transparent sm:justify-evenly md:justify-between lg:justify-evenly text-lg font-semibold right-0 flex-col bg-slate-800 bg-opacity-50 sm:bg-opacity-0 sm:backdrop-blur-none backdrop-blur-md h-[70vh] sm:h-0 top-[75px] bottom-0 justify-evenly items-center -z-[199] sm:z-[99] w-[65%] translate-x-full sm:translate-x-0 transition-all duration-300 rounded-md border border-slate-600 sm:border-none">
+        <ul className="flex absolute text-lg font-semibold right-0 flex-col bg-slate-800 bg-opacity-60 backdrop-blur-lg h-[70vh] top-[75px] bottom-0 justify-evenly items-center -z-[199] w-[65%] sm:w-[50%] md:w-[40%] transition-all duration-300 rounded-md border border-slate-600 navbar-nav">
           {routes.map(({ path, name }, index) => (
             <li key={index}>
               <Link href={path}>
@@ -55,14 +57,23 @@ const Navbar = () => {
               <input
                 type="search"
                 id="input-search"
-                placeholder="Search..."
-                className="w-44 px-4 py-1 ring rounded-full focus:outline-none focus:ring focus:ring-sky-500 bg-slate-800"
+                placeholder="Search anime or manga"
+                className="w-44 px-4 py-1 ring rounded-full focus:outline-none focus:ring focus:ring-sky-500 bg-slate-800 truncate"
               />
             </form>
           </li>
         </ul>
 
-        <div className="sm:hidden relative">
+        <form className="hidden sm:block">
+          <input
+            type="search"
+            id="input-search"
+            placeholder="Search anime or manga"
+            className="lg:w-96 sm:w-80 px-4 py-1 ring rounded-full focus:outline-none focus:ring focus:ring-sky-500 bg-slate-800 truncate"
+          />
+        </form>
+
+        <div className="relative">
           <input
             type="checkbox"
             id="toggle"
