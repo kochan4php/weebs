@@ -23,7 +23,7 @@ const Home = ({ data }) => {
                 <Fragment key={data?.mal_id}>
                   <CardMobile
                     bgimage={data?.images?.webp?.large_image_url}
-                    path={"/"}
+                    path={`/anime/detail/${data?.mal_id}`}
                   >
                     <CardImage
                       src={data?.images?.webp?.large_image_url}
@@ -44,7 +44,7 @@ const Home = ({ data }) => {
 
                   <div className="hidden md:block">
                     <Card
-                      path={`/anime/${data?.mal_id}`}
+                      path={`/anime/detail/${data?.mal_id}`}
                       bgcolor="bg-slate-700"
                       shadowSize="shadow-lg"
                       shadow="shadow-slate-800"

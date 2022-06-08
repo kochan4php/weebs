@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const routes = [
   { path: "/", name: "Home" },
@@ -12,7 +12,6 @@ const Navbar = () => {
   useEffect(() => {
     const toggle = document.getElementById("toggle");
     const navUl = document.querySelector("nav ul");
-    const inputSearch = document.getElementById("input-search");
 
     toggle.addEventListener("click", function () {
       this.classList.toggle("hamburger-active");
@@ -21,11 +20,7 @@ const Navbar = () => {
     });
 
     window.addEventListener("click", function (e) {
-      if (
-        e.target !== navUl &&
-        e.target !== toggle &&
-        e.target !== inputSearch
-      ) {
+      if (e.target !== navUl && e.target !== toggle) {
         navUl.classList.remove("slide");
         navUl.classList.add("navbar-nav");
         toggle.classList.remove("hamburger-active");
@@ -34,10 +29,10 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-slate-800 py-2.5 z-[999] w-full transition-all duration-300 text-white border-b border-b-transparent relative border-b-slate-600">
+    <nav className="bg-gray-900 py-2.5 z-[999] w-full transition-all duration-300 text-white border-b relative border-b-slate-700">
       <div className="container flex justify-between items-center py-1 relative">
         <div>
-          <h1 className="text-center text-sky-300 font-semibold text-3xl">
+          <h1 className="text-center bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent font-semibold text-3xl">
             Weebs
           </h1>
         </div>
@@ -52,26 +47,7 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
-          <li className="sm:hidden">
-            <form>
-              <input
-                type="search"
-                id="input-search"
-                placeholder="Search anime or manga"
-                className="w-44 px-4 py-1 ring rounded-full focus:outline-none focus:ring focus:ring-sky-500 bg-slate-800 truncate"
-              />
-            </form>
-          </li>
         </ul>
-
-        <form className="hidden sm:block">
-          <input
-            type="search"
-            id="input-search"
-            placeholder="Search anime or manga"
-            className="lg:w-96 sm:w-80 px-4 py-1 ring rounded-full focus:outline-none focus:ring focus:ring-sky-500 bg-slate-800 truncate"
-          />
-        </form>
 
         <div className="relative">
           <input

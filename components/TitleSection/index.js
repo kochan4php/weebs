@@ -1,7 +1,7 @@
-const TitleSection = ({ children, className, textCenter }) => (
+const TitleSection = ({ children, className, textCenter, fontSize }) => (
   <div className={className ?? "mb-12 mt-8"}>
     <h1
-      className={`text-sky-200 font-semibold text-2xl md:text-4xl ${
+      className={`text-sky-200 font-semibold ${fontSize} ${
         textCenter ? "text-center" : ""
       }`}
     >
