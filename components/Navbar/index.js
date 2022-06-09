@@ -1,14 +1,20 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
+const createRoute = (path, name) => ({ path, name });
+
 const routes = [
-  { path: "/", name: "Home" },
-  { path: "/anime", name: "Anime" },
-  { path: "/novel", name: "Novel" },
-  { path: "/characters", name: "Characters" },
+  createRoute("/", "Home"),
+  createRoute("/anime", "Anime"),
+  createRoute("/novel", "Novel"),
+  createRoute("/characters", "Characters"),
 ];
 
 const Navbar = () => {
+  const router = useRouter();
+  console.log(router.asPath.split("/").splice(1)[0]);
+
   useEffect(() => {
     const toggle = document.getElementById("toggle");
     const navUl = document.querySelector("nav ul");
@@ -37,7 +43,7 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <ul className="flex absolute text-lg font-semibold right-0 flex-col bg-slate-800 bg-opacity-60 backdrop-blur-lg h-[70vh] top-[75px] bottom-0 justify-evenly items-center -z-[199] w-[65%] sm:w-[50%] md:w-[40%] transition-all duration-300 rounded-md border border-slate-600 navbar-nav">
+        <ul className="flex absolute md:static text-lg font-semibold right-0 flex-col md:flex-row bg-slate-800 bg-opacity-60 md:bg-opacity-100 md:bg-transparent md:border-none md:h-0 md:z-[999] md:backdrop-blur-none backdrop-blur-lg h-[70vh] top-[75px] bottom-0 justify-evenly md:justify-between items-center -z-[199] w-[65%] md:w-[50%] lg:w-[35%] transition-all duration-300 md:rounded-none rounded-md border border-slate-600 navbar-nav">
           {routes.map(({ path, name }, index) => (
             <li key={index}>
               <Link href={path}>
@@ -49,7 +55,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="relative">
+        <div className="relative md:hidden">
           <input
             type="checkbox"
             id="toggle"

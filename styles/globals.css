@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  font-family: "Lexend Deca", Arial, Helvetica, sans-serif;
-  @apply box-border;
+@layer utilities {
+  html {
+    font-family: "Lexend Deca", Arial, Helvetica, sans-serif;
+  }
 }
 
 a.nav-link {
@@ -28,6 +29,13 @@ body {
 .navbar-nav {
   transform: translateX(100%);
   opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 #toggle {
