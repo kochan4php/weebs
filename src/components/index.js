@@ -4,6 +4,7 @@ import Card from "./Card";
 import CardImage from "./CardImage";
 import CardLink from "./CardLink";
 import CardMobile from "./CardMobile";
+import Dropdown from "./Dropdown";
 import ErrorMessage from "./ErrorMessage";
 import FloatingRating from "./FloatingRating";
 import Footer from "./Footer";
@@ -26,6 +27,7 @@ export {
   CardImage,
   CardLink,
   CardMobile,
+  Dropdown,
   ErrorMessage,
   FloatingRating,
   Footer,

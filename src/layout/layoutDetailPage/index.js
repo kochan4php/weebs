@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { NavbarDetail } from "../../components";
 
+// Layout detail page for anime and manga detail page
 const LayoutDetailPage = ({ children, routes }) => (
   <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 text-white pt-16 pb-6 min-h-screen">
     <NavbarDetail routes={routes} />
