@@ -54,13 +54,6 @@
   @apply border-b-slate-200;
 }
 
-@media (min-width: 768px) {
-  .navbar-nav {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
 #toggle {
   transform: translateX(2px) translateY(3px);
 }

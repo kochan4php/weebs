@@ -8,31 +8,31 @@ import {
   TitleSection,
 } from "../../../../components";
 import LayoutDetailPage from "../../../../layout/layoutDetailPage";
-import routesAnime from "../../../../helper/_routesAnime";
+import routesManga from "../../../../helper/_routesManga";
 
-const { getAnimeCharacters } = action;
+const { getMangaCharacters } = action;
 
 const Characters = () => {
   const router = useRouter();
-  const { animeId } = router.query;
+  const { mangaId } = router.query;
 
   const [dataCharacters, setDataCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   const getData = async (id) => {
-    const getDataCharacter = await getAnimeCharacters(id);
+    const getDataCharacter = await getMangaCharacters(id);
     if (getDataCharacter) setDataCharacters(getDataCharacter);
     else setIsError(true);
     setIsLoading(false);
   };
 
   useEffect(() => {
-    getData(animeId);
-  }, [animeId]);
+    getData(mangaId);
+  }, [mangaId]);
 
   return (
-    <LayoutDetailPage routes={routesAnime(animeId)}>
+    <LayoutDetailPage routes={routesManga(mangaId)}>
       {isLoading ? (
         <Loading />
       ) : (
@@ -56,7 +56,7 @@ const Characters = () => {
 
                       return (
                         <MainCard
-                          path={`/anime/${animeId}/characters/${character?.mal_id}`}
+                          path={`/anime/${mangaId}/characters/${character?.mal_id}`}
                           id={character?.mal_id}
                           image={character?.images?.webp?.image_url}
                           key={character?.mal_id}

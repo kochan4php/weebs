@@ -1,66 +1,47 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import {
   ErrorMessage,
+  Loading,
   MainCard,
   TitleSection,
-  Loading,
-  Dropdown,
 } from "../../components";
 import JIKAN_API from "../../config/Jikan";
-import createRoute from "../../helper/createRoute";
-import { selectedAnime, titleAnime } from "../../store";
+import action from "../../action";
 
-const dataDropdown = [
-  createRoute("/seasons/now", "Airing Now"),
-  createRoute("/seasons/upcoming", "Upcoming Anime"),
-  createRoute("/top/anime", "Top Anime"),
-];
+const { getTopManga } = action;
 
-const Anime = () => {
-  const [anime, setAnime] = useRecoilState(selectedAnime);
-  const [title, setTitle] = useRecoilState(titleAnime);
-
-  const [jikanAnime, setJikanAnime] = useState([]);
+const Manga = () => {
+  const [jikanManga, setJikanManga] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  const getData = async (selectedAnime) => {
-    const requestAnime = await fetch(`${JIKAN_API}${selectedAnime}`);
-    const responseAnime = await requestAnime.json();
-    setJikanAnime(responseAnime.data);
+  const getData = async () => {
+    const response = await getTopManga();
+    if (response) setJikanManga(response);
+    else setIsError(true);
     setIsLoading(false);
   };
 
-  const clickHandler = (e) => {
-    setTitle(e.target.innerText);
-    setAnime(e.target.dataset.value);
-  };
-
   useEffect(() => {
-    getData(anime);
-  }, [anime, title]);
+    getData();
+  }, []);
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">
       <div className="container flex justify-between items-center pt-4 pb-7">
-        {!isLoading && (
-          <>
-            <TitleSection>{title}</TitleSection>
-            <Dropdown dataDropdown={dataDropdown} onClick={clickHandler} />
-          </>
-        )}
+        <TitleSection>Top Manga</TitleSection>
       </div>
       <div className="container px-0 lg:px-4">
         {isLoading ? (
           <Loading />
         ) : (
           <>
-            {jikanAnime ? (
+            {jikanManga ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
-                {jikanAnime.map(({ mal_id, images, title, score }) => (
+                {jikanManga.map(({ mal_id, images, title, score }) => (
                   <MainCard
                     key={mal_id}
-                    path={`/anime/${mal_id}/details`}
+                    path={`/manga/${mal_id}/details`}
                     id={mal_id}
                     image={images?.webp?.large_image_url}
                     title={title}
@@ -80,4 +61,4 @@ const Anime = () => {
   );
 };
 
-export default Anime;
+export default Manga;

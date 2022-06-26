@@ -11,8 +11,19 @@ const getAnimeVideos = async (id) => {
   }
 };
 
-const getCharacters = async (id) => {
+const getAnimeCharacters = async (id) => {
   const request = await fetch(`${JIKAN_API}/anime/${id}/characters`);
+
+  if (request.ok) {
+    const response = await request.json();
+    return response.data;
+  } else {
+    return;
+  }
+};
+
+const getMangaCharacters = async (id) => {
+  const request = await fetch(`${JIKAN_API}/manga/${id}/characters`);
 
   if (request.ok) {
     const response = await request.json();
@@ -33,8 +44,30 @@ const getAnimeStats = async (id) => {
   }
 };
 
+const getMangaStats = async (id) => {
+  const request = await fetch(`${JIKAN_API}/manga/${id}/statistics`);
+
+  if (request.ok) {
+    const response = await request.json();
+    return response.data;
+  } else {
+    return;
+  }
+};
+
 const getAnimeReviews = async (id) => {
   const request = await fetch(`${JIKAN_API}/anime/${id}/reviews`);
+
+  if (request.ok) {
+    const response = await request.json();
+    return response.data;
+  } else {
+    return;
+  }
+};
+
+const getMangaReviews = async (id) => {
+  const request = await fetch(`${JIKAN_API}/manga/${id}/reviews`);
 
   if (request.ok) {
     const response = await request.json();
@@ -55,7 +88,18 @@ const getDetailAnime = async (id) => {
   }
 };
 
-const getDetailNovel = async (id) => {
+const getTopManga = async () => {
+  const request = await fetch(`${JIKAN_API}/top/manga`);
+
+  if (request.ok) {
+    const response = await request.json();
+    return response.data;
+  } else {
+    return;
+  }
+};
+
+const getDetailManga = async (id) => {
   const request = await fetch(`${JIKAN_API}/manga/${id}/full`);
 
   if (request.ok) {
@@ -88,7 +132,7 @@ const getPhotoAnime = async (id) => {
   }
 };
 
-const getPhotoNovel = async (id) => {
+const getPhotoManga = async (id) => {
   const request = await fetch(`${JIKAN_API}/manga/${id}/pictures`);
 
   if (request.ok) {
@@ -112,13 +156,17 @@ const getPhotoCharacter = async (id) => {
 
 export default {
   getAnimeVideos,
-  getCharacters,
+  getAnimeCharacters,
+  getMangaCharacters,
   getDetailAnime,
   getAnimeStats,
-  getAnimeReviews,
-  getDetailNovel,
+  getMangaStats,
+  getTopManga,
+  getDetailManga,
   getDetailCharacter,
   getPhotoAnime,
-  getPhotoNovel,
+  getPhotoManga,
   getPhotoCharacter,
+  getAnimeReviews,
+  getMangaReviews,
 };
