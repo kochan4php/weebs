@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import {
   ErrorMessage,
   MainCard,
@@ -7,6 +8,7 @@ import {
   Dropdown,
 } from "../../components";
 import JIKAN_API from "../../config/Jikan";
+import { selectedAnime, titleAnime } from "../../store";
 
 const dataDropdown = [
   { path: "/seasons/now", name: "Airing Now" },
@@ -15,30 +17,27 @@ const dataDropdown = [
 ];
 
 const Anime = () => {
+  const [anime, setAnime] = useRecoilState(selectedAnime);
+  const [title, setTitle] = useRecoilState(titleAnime);
+
   const [jikanAnime, setJikanAnime] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [title, setTitle] = useState("");
 
-  const getData = async () => {
-    const animeSelected = localStorage.getItem("anime-selected");
-    const requestAnime = await fetch(`${JIKAN_API}${animeSelected}`);
+  const getData = async (selectedAnime) => {
+    const requestAnime = await fetch(`${JIKAN_API}${selectedAnime}`);
     const responseAnime = await requestAnime.json();
     setJikanAnime(responseAnime.data);
     setIsLoading(false);
   };
 
   const clickHandler = (e) => {
-    console.dir(e.target.innerText);
     setTitle(e.target.innerText);
-    localStorage.setItem("title-anime", e.target.innerText);
-    localStorage.setItem("anime-selected", e.target.dataset.value);
+    setAnime(e.target.dataset.value);
   };
 
   useEffect(() => {
-    getData();
-    const titleAnime = localStorage.getItem("title-anime");
-    setTitle(titleAnime);
-  }, [title]);
+    getData(anime);
+  }, [anime, title]);
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">

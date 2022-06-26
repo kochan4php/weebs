@@ -24,6 +24,7 @@ const DetailAnime = () => {
 
   const getData = async (id) => {
     const getDetailData = await getDetailAnime(id);
+    console.log(getDetailData);
     if (getDetailData) setDetailData(getDetailData);
     else setIsError(true);
     setIsLoading(false);
@@ -76,17 +77,9 @@ const DetailAnime = () => {
                       </Text>
                       <Text category="Rank">{detailData?.rank}</Text>
                       <Text category="Genre">
-                        {detailData?.themes?.map((genre, index) => {
-                          const coma =
-                            detailData?.themes.length - 1 === index ? "" : ", ";
-
-                          return (
-                            <span key={index}>
-                              {genre.name}
-                              {coma}
-                            </span>
-                          );
-                        })}
+                        {detailData?.genres?.map((genre, index) => (
+                          <span key={index}>{genre.name}, </span>
+                        ))}
                       </Text>
                       <Text category="Type">{detailData?.type}</Text>
                       <Text category="Duration">{detailData?.duration}</Text>
@@ -94,6 +87,9 @@ const DetailAnime = () => {
                         {detailData?.studios?.map((studio) => studio.name)}
                       </Text>
                       <Text category="Status"> {detailData?.status}</Text>
+                      <Text category="Rating"> {detailData?.rating}</Text>
+                      <Text category="Year"> {detailData?.year}</Text>
+                      <Text category="Season"> {detailData?.season}</Text>
                     </div>
                   </div>
                 </div>

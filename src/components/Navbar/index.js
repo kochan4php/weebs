@@ -7,7 +7,7 @@ const routes = [
   createRoute("/", "Home"),
   createRoute("/about", "About"),
   createRoute("/anime", "Anime"),
-  createRoute("/novel", "Novel"),
+  createRoute("/manga", "Manga"),
 ];
 
 const Navbar = () => {
@@ -43,7 +43,7 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-900 py-2.5 z-[999] w-full transition-all duration-300 text-white border-b relative border-b-slate-700">
       <div className="container flex justify-between items-center py-1 relative">
-        <div>
+        <div className="hidden lg:block">
           <h1 className="text-center bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent font-semibold text-3xl">
             <Link href="/">Weebs</Link>
           </h1>
@@ -64,6 +64,18 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+
+        <div>
+          <form>
+            <input
+              type="search"
+              name="search"
+              id="search"
+              className="outline-none px-3 py-1 rounded-full bg-slate-800 text-base border-2 border-transparent focus:border-sky-500 transition-all"
+              placeholder="Search anime or manga"
+            />
+          </form>
+        </div>
 
         <div className="md:hidden relative">
           <input
