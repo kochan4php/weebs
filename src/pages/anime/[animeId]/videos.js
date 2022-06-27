@@ -4,6 +4,7 @@ import action from "../../../action";
 import { ErrorMessage, Loading, TitleSection } from "../../../components";
 import routesAnime from "../../../helper/_routesAnime";
 import LayoutDetailPage from "../../../layout/layoutDetailPage";
+import { RenderIfTrue, RenderIfFalse, For } from "../../../utils";
 
 const { getAnimeVideos } = action;
 
@@ -28,33 +29,34 @@ const Videos = () => {
 
   return (
     <LayoutDetailPage routes={routesAnime(animeId)}>
-      {isLoading ? (
+      <RenderIfTrue isTrue={isLoading}>
         <Loading />
-      ) : (
-        <>
-          <div className="container text-white mt-8">
-            <TitleSection>Videos</TitleSection>
-          </div>
-          <div className="container text-white mt-8 mb-6 xl:px-0">
-            {isError ? (
-              <ErrorMessage message="Kebanyakan Request di API nya" />
-            ) : (
-              <>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
-                  {videos?.promo?.map((data, index) => (
-                    <iframe
-                      key={index}
-                      src={data?.trailer?.embed_url}
-                      width="100%"
-                      className="selection:bg-violet-500 aspect-video"
-                    ></iframe>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        </>
-      )}
+      </RenderIfTrue>
+      <RenderIfFalse isFalse={isLoading}>
+        <div className="container text-white mt-8 mb-7">
+          <TitleSection>Videos</TitleSection>
+        </div>
+        <div className="container text-white mt-8 mb-6 xl:px-0">
+          <RenderIfTrue isTrue={isError}>
+            <ErrorMessage message="Kebanyakan Request di API nya" />
+          </RenderIfTrue>
+          <RenderIfFalse isFalse={isError}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+              <For
+                each={videos?.promo}
+                render={(data, index) => (
+                  <iframe
+                    key={index}
+                    src={data?.trailer?.embed_url}
+                    width="100%"
+                    className="selection:bg-violet-500 aspect-video"
+                  ></iframe>
+                )}
+              />
+            </div>
+          </RenderIfFalse>
+        </div>
+      </RenderIfFalse>
     </LayoutDetailPage>
   );
 };

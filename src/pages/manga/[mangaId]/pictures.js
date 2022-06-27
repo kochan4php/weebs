@@ -37,7 +37,7 @@ const Pictures = () => {
         <Loading />
       ) : (
         <>
-          <div className="container text-white mt-8">
+          <div className="container text-white mt-8 mb-7">
             <TitleSection>Pictures</TitleSection>
           </div>
           <div className="container text-white mt-8 mb-6 xl:px-0">

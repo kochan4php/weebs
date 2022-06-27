@@ -33,7 +33,7 @@ const Reviews = () => {
         <Loading />
       ) : (
         <>
-          <div className="container text-white mt-8">
+          <div className="container text-white mt-8 mb-7">
             <TitleSection>Reviews</TitleSection>
           </div>
           <div className="container text-white mt-8 mb-6">

@@ -33,7 +33,7 @@ const Stats = () => {
         <Loading />
       ) : (
         <>
-          <div className="container text-white mt-8">
+          <div className="container text-white mt-8 mb-7">
             <TitleSection>Statistics</TitleSection>
           </div>
           <div className="container text-white md:mt-8">

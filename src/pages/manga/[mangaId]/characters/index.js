@@ -37,7 +37,7 @@ const Characters = () => {
         <Loading />
       ) : (
         <>
-          <div className="container text-white mt-8">
+          <div className="container text-white mt-8 mb-7">
             <TitleSection>Characters</TitleSection>
           </div>
           <div className="container text-white mb-6 px-0">

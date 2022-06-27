@@ -10,6 +10,7 @@ import {
 import JIKAN_API from "../../config/Jikan";
 import createRoute from "../../helper/createRoute";
 import { selectedAnime, titleAnime } from "../../store";
+import { RenderIfTrue, RenderIfFalse, For } from "../../utils";
 
 const dataDropdown = [
   createRoute("/seasons/now", "Airing Now"),
@@ -42,22 +43,22 @@ const Anime = () => {
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">
-      <div className="container flex justify-between items-center pt-4 pb-7">
-        {!isLoading && (
-          <>
-            <TitleSection>{title}</TitleSection>
-            <Dropdown dataDropdown={dataDropdown} onClick={clickHandler} />
-          </>
-        )}
+      <div className="container flex justRenderIfTruey-between items-center pt-4 pb-7">
+        <RenderIfFalse isFalse={isLoading}>
+          <TitleSection>{title}</TitleSection>
+          <Dropdown dataDropdown={dataDropdown} onClick={clickHandler} />
+        </RenderIfFalse>
       </div>
       <div className="container px-0 lg:px-4">
-        {isLoading ? (
+        <RenderIfTrue isTrue={isLoading}>
           <Loading />
-        ) : (
-          <>
-            {jikanAnime ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
-                {jikanAnime.map(({ mal_id, images, title, score }) => (
+        </RenderIfTrue>
+        <RenderIfFalse isFalse={isLoading}>
+          <RenderIfTrue isTrue={jikanAnime}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
+              <For
+                each={jikanAnime}
+                render={({ mal_id, images, title, score }) => (
                   <MainCard
                     key={mal_id}
                     path={`/anime/${mal_id}/details`}
@@ -68,13 +69,14 @@ const Anime = () => {
                     py="py-5"
                     fontsize="text-base"
                   />
-                ))}
-              </div>
-            ) : (
-              <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
-            )}
-          </>
-        )}
+                )}
+              />
+            </div>
+          </RenderIfTrue>
+          <RenderIfFalse isFalse={jikanAnime}>
+            <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
+          </RenderIfFalse>
+        </RenderIfFalse>
       </div>
     </section>
   );

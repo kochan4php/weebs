@@ -39,15 +39,6 @@ const DetailAnime = () => {
         <Loading />
       ) : (
         <>
-          {detailData?.trailer?.embed_url && (
-            <div className="container p-0">
-              <iframe
-                src={detailData?.trailer?.embed_url}
-                width="100%"
-                className="aspect-[18/10] md:aspect-[18/8] selection:bg-violet-500"
-              ></iframe>
-            </div>
-          )}
           <div className="container my-10 p-4">
             {isError ? (
               <ErrorMessage message="Kebanyakan Request di API nya" />
@@ -71,8 +62,11 @@ const DetailAnime = () => {
                       {detailData?.title}
                     </h1>
                     <div className="text-lg selection:bg-pink-500 selection:text-pink-900">
-                      <Text category="Release">
-                        {detailData?.aired?.string}
+                      <Text category="Japanese">
+                        {detailData?.title_japanese}
+                      </Text>
+                      <Text category="Published">
+                        {detailData?.published?.string}
                       </Text>
                       <Text category="Rank">{detailData?.rank}</Text>
                       <Text category="Genre">
@@ -81,14 +75,14 @@ const DetailAnime = () => {
                         ))}
                       </Text>
                       <Text category="Type">{detailData?.type}</Text>
-                      <Text category="Duration">{detailData?.duration}</Text>
-                      <Text category="Studio">
-                        {detailData?.studios?.map((studio) => studio.name)}
-                      </Text>
+                      <Text category="Favorites">{detailData?.favorites}</Text>
                       <Text category="Status"> {detailData?.status}</Text>
-                      <Text category="Rating"> {detailData?.rating}</Text>
-                      <Text category="Year"> {detailData?.year}</Text>
-                      <Text category="Season"> {detailData?.season}</Text>
+                      {detailData?.chapters && (
+                        <Text category="Chapter"> {detailData?.chapters}</Text>
+                      )}
+                      {detailData?.volumes && (
+                        <Text category="Volumes"> {detailData?.volumes}</Text>
+                      )}
                     </div>
                   </div>
                 </div>
