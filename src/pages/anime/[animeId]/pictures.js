@@ -61,7 +61,7 @@ const Pictures = () => {
               </div>
             </RenderIfTrue>
             <RenderIfFalse isFalse={pictures}>
-              <ErrorMessage />
+              <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
             </RenderIfFalse>
           </RenderIfFalse>
         </div>

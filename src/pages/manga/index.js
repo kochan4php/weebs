@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import action from "../../action";
 import {
   ErrorMessage,
   Loading,
   MainCard,
   TitleSection,
 } from "../../components";
-import JIKAN_API from "../../config/Jikan";
-import action from "../../action";
+import { RenderIfTrue, RenderIfFalse, For } from "../../utils";
 
 const { getTopManga } = action;
 
@@ -32,13 +32,15 @@ const Manga = () => {
         <TitleSection>Top Manga</TitleSection>
       </div>
       <div className="container px-0 lg:px-4">
-        {isLoading ? (
+        <RenderIfTrue isTrue={isLoading}>
           <Loading />
-        ) : (
-          <>
-            {jikanManga ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
-                {jikanManga.map(({ mal_id, images, title, score }) => (
+        </RenderIfTrue>
+        <RenderIfFalse isFalse={isLoading}>
+          <RenderIfTrue isTrue={jikanManga}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
+              <For
+                each={jikanManga}
+                render={({ mal_id, images, title, score }) => (
                   <MainCard
                     key={mal_id}
                     path={`/manga/${mal_id}/details`}
@@ -49,13 +51,14 @@ const Manga = () => {
                     py="py-5"
                     fontsize="text-base"
                   />
-                ))}
-              </div>
-            ) : (
-              <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
-            )}
-          </>
-        )}
+                )}
+              />
+            </div>
+          </RenderIfTrue>
+          <RenderIfFalse isFalse={jikanManga}>
+            <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
+          </RenderIfFalse>
+        </RenderIfFalse>
       </div>
     </section>
   );

@@ -9,6 +9,7 @@ import {
   ParallaxImage,
   Synopsis,
   Text,
+  TitleSection,
 } from "../../../../components";
 import { RenderIfTrue, RenderIfFalse, For } from "../../../../utils";
 
@@ -43,11 +44,14 @@ const DetailCharacter = () => {
   }, [characterId]);
 
   return (
-    <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 text-white pt-16 pb-6 min-h-screen">
+    <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 text-white pt-10 pb-6 min-h-screen">
       <RenderIfTrue isTrue={isLoading}>
         <Loading />
       </RenderIfTrue>
       <RenderIfFalse isFalse={isLoading}>
+        <div className="container text-white mb-7">
+          <TitleSection>Detail Character</TitleSection>
+        </div>
         <div className="container my-10 p-4">
           <RenderIfTrue isTrue={isError}>
             <ErrorMessage message="Kebanyakan Request di API nya" />

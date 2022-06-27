@@ -9,7 +9,9 @@ import {
   ParallaxImage,
   Synopsis,
   Text,
+  TitleSection,
 } from "../../../../components";
+import { For, RenderIfFalse, RenderIfTrue } from "../../../../utils";
 
 const { getDetailCharacter, getPhotoCharacter } = action;
 
@@ -42,53 +44,52 @@ const DetailCharacter = () => {
   }, [characterId]);
 
   return (
-    <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 text-white pt-16 pb-6 min-h-screen">
-      {isLoading ? (
+    <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 text-white pt-10 pb-6 min-h-screen">
+      <RenderIfTrue isTrue={isLoading}>
         <Loading />
-      ) : (
-        <>
-          <div className="container my-10 p-4">
-            {isError ? (
-              <ErrorMessage message="Kebanyakan Request di API nya" />
-            ) : (
-              <>
-                <div className="grid grid-cols-1 md:grid-cols-3">
-                  <div className="flex justify-center items-center selection:bg-pink-500">
-                    <ParallaxImage
-                      image={detailCharacter?.images?.webp?.image_url}
-                      alt={detailCharacter?.name}
-                    />
-                  </div>
-                  <div className="flex items-center justify-start md:col-start-2 md:col-end-4 p-4 md:py-0">
-                    <div className="flex flex-col">
-                      <h1 className="text-2xl lg:text-3xl xl:text-4xl font-semibold my-6 md:my-0 md:mb-5 selection:bg-violet-500 selection:text-violet-900">
-                        {detailCharacter?.name}
-                      </h1>
-                      <div className="text-lg selection:bg-pink-500 selection:text-pink-900">
-                        <Text category="Kanji">
-                          {detailCharacter?.name_kanji}
-                        </Text>
-                        <Text category="Favorite">
-                          {detailCharacter?.favorites}
-                        </Text>
-                      </div>
-                    </div>
+      </RenderIfTrue>
+      <RenderIfFalse isFalse={isLoading}>
+        <div className="container text-white mb-7">
+          <TitleSection>Detail Character</TitleSection>
+        </div>
+        <div className="container my-10 p-4">
+          <RenderIfTrue isTrue={isError}>
+            <ErrorMessage message="Kebanyakan Request di API nya" />
+          </RenderIfTrue>
+          <RenderIfFalse isFalse={isError}>
+            <div className="grid grid-cols-1 md:grid-cols-3">
+              <div className="flex justify-center items-center selection:bg-pink-500">
+                <ParallaxImage
+                  image={detailCharacter?.images?.webp?.image_url}
+                  alt={detailCharacter?.name}
+                />
+              </div>
+              <div className="flex items-center justify-start md:col-start-2 md:col-end-4 p-4 md:py-0">
+                <div className="flex flex-col">
+                  <h1 className="text-2xl lg:text-3xl xl:text-4xl font-semibold my-6 md:my-0 md:mb-5 selection:bg-violet-500 selection:text-violet-900">
+                    {detailCharacter?.name}
+                  </h1>
+                  <div className="text-lg selection:bg-pink-500 selection:text-pink-900">
+                    <Text category="Kanji">{detailCharacter?.name_kanji}</Text>
+                    <Text category="Favorite">
+                      {detailCharacter?.favorites}
+                    </Text>
                   </div>
                 </div>
-
-                <Synopsis>
-                  {detailCharacter?.about
-                    ? detailCharacter?.about
-                    : "No synopsis."}
-                </Synopsis>
-
-                <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
-                  <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
-                    Anime
-                  </h1>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 -mx-4 md:mx-0">
-                    {detailCharacter?.anime.map((data) => (
+              </div>
+            </div>
+            <Synopsis>
+              {detailCharacter?.about ? detailCharacter?.about : "No synopsis."}
+            </Synopsis>
+            <RenderIfTrue isTrue={detailCharacter?.anime}>
+              <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
+                <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
+                  Anime
+                </h1>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 -mx-4 md:mx-0">
+                  <For
+                    each={detailCharacter?.anime}
+                    render={(data) => (
                       <MainCard
                         key={data?.anime?.mal_id}
                         path={`/anime/${data?.anime?.mal_id}/details`}
@@ -98,17 +99,20 @@ const DetailCharacter = () => {
                         py="py-5"
                         fontsize="text-base"
                       />
-                    ))}
-                  </div>
+                    )}
+                  />
                 </div>
-
-                <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
-                  <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
-                    Manga
-                  </h1>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 -mx-4 md:mx-0">
-                    {detailCharacter?.manga.map((data) => (
+              </div>
+            </RenderIfTrue>
+            <RenderIfTrue isTrue={detailCharacter?.manga}>
+              <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
+                <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
+                  Manga
+                </h1>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 -mx-4 md:mx-0">
+                  <For
+                    each={detailCharacter?.manga}
+                    render={(data) => (
                       <MainCard
                         key={data?.manga?.mal_id}
                         path="novel"
@@ -118,35 +122,33 @@ const DetailCharacter = () => {
                         py="py-5"
                         fontsize="text-base"
                       />
-                    ))}
-                  </div>
+                    )}
+                  />
                 </div>
-
-                {photosCharacter !== [] ? (
-                  <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
-                    <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
-                      Photos
-                    </h1>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
-                      {photosCharacter?.map((data, index) => (
-                        <ParallaxCardImage
-                          image={data?.jpg?.image_url}
-                          alt={`gambar ${index + 1}`}
-                          key={index}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-md md:text-lg text-justify md:text-left selection:bg-green-500 selection:text-green-900">
-                    No photos.
-                  </p>
-                )}
-              </>
-            )}
-          </div>
-        </>
-      )}
+              </div>
+            </RenderIfTrue>
+            <RenderIfTrue isTrue={photosCharacter !== []}>
+              <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
+                <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
+                  Photos
+                </h1>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+                  <For
+                    each={photosCharacter}
+                    render={(data, index) => (
+                      <ParallaxCardImage
+                        image={data?.jpg?.image_url}
+                        alt={`gambar ${index + 1}`}
+                        key={index}
+                      />
+                    )}
+                  />
+                </div>
+              </div>
+            </RenderIfTrue>
+          </RenderIfFalse>
+        </div>
+      </RenderIfFalse>
     </section>
   );
 };

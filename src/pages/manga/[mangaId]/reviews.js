@@ -4,6 +4,7 @@ import action from "../../../action";
 import { ErrorMessage, Loading, TitleSection } from "../../../components";
 import routesManga from "../../../helper/_routesManga";
 import LayoutDetailPage from "../../../layout/layoutDetailPage";
+import { RenderIfTrue, RenderIfFalse, For } from "../../../utils";
 
 const { getMangaReviews } = action;
 
@@ -29,22 +30,22 @@ const Reviews = () => {
 
   return (
     <LayoutDetailPage routes={routesManga(mangaId)}>
-      {isLoading ? (
+      <RenderIfTrue isTrue={isLoading}>
         <Loading />
-      ) : (
-        <>
-          <div className="container text-white mt-8 mb-7">
-            <TitleSection>Reviews</TitleSection>
-          </div>
-          <div className="container text-white mt-8 mb-6">
-            {isError ? (
-              <ErrorMessage message="Kebanyakan request di API nya" />
-            ) : (
-              <h1>Berhasil Bang Hehehe</h1>
-            )}
-          </div>
-        </>
-      )}
+      </RenderIfTrue>
+      <RenderIfFalse isFalse={isLoading}>
+        <div className="container text-white mt-8 mb-7">
+          <TitleSection>Reviews</TitleSection>
+        </div>
+        <div className="container text-white mt-8 mb-6">
+          <RenderIfTrue isTrue={isError}>
+            <ErrorMessage message="Kebanyakan request di API nya" />
+          </RenderIfTrue>
+          <RenderIfFalse isFalse={isError}>
+            <h1>Berhasil Bang Hehehe</h1>
+          </RenderIfFalse>
+        </div>
+      </RenderIfFalse>
     </LayoutDetailPage>
   );
 };
