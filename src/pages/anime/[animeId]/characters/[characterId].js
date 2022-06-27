@@ -31,7 +31,6 @@ const DetailCharacter = () => {
     if (getDataCharacter && getPhotosCharacter) {
       setDetailCharacter(getDataCharacter);
       setPhotosCharacter(getPhotosCharacter);
-      setIsError(false);
     } else {
       setIsError(true);
     }
@@ -81,7 +80,7 @@ const DetailCharacter = () => {
             <Synopsis>
               {detailCharacter?.about ? detailCharacter?.about : "No synopsis."}
             </Synopsis>
-            <RenderIfTrue isTrue={detailCharacter?.anime}>
+            <RenderIfTrue isTrue={detailCharacter?.anime?.length > 0}>
               <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
                 <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
                   Anime
@@ -104,7 +103,7 @@ const DetailCharacter = () => {
                 </div>
               </div>
             </RenderIfTrue>
-            <RenderIfTrue isTrue={detailCharacter?.manga}>
+            <RenderIfTrue isTrue={detailCharacter?.manga?.length > 0}>
               <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
                 <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
                   Manga

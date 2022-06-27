@@ -104,7 +104,7 @@ const DetailCharacter = () => {
                 </div>
               </div>
             </RenderIfTrue>
-            <RenderIfTrue isTrue={detailCharacter?.manga}>
+            <RenderIfTrue isTrue={detailCharacter?.manga?.length > 0}>
               <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
                 <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
                   Manga
@@ -127,7 +127,7 @@ const DetailCharacter = () => {
                 </div>
               </div>
             </RenderIfTrue>
-            <RenderIfTrue isTrue={photosCharacter !== []}>
+            <RenderIfTrue isTrue={photosCharacter?.length > 0}>
               <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
                 <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
                   Photos

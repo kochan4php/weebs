@@ -36,7 +36,7 @@ const Manga = () => {
           <Loading />
         </RenderIfTrue>
         <RenderIfFalse isFalse={isLoading}>
-          <RenderIfTrue isTrue={jikanManga}>
+          <RenderIfTrue isTrue={jikanManga.length > 0}>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
               <For
                 each={jikanManga}
@@ -55,7 +55,7 @@ const Manga = () => {
               />
             </div>
           </RenderIfTrue>
-          <RenderIfFalse isFalse={jikanManga}>
+          <RenderIfFalse isFalse={jikanManga.length === 0}>
             <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
           </RenderIfFalse>
         </RenderIfFalse>

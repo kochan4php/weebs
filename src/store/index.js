@@ -15,4 +15,9 @@ const titleAnime = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export { selectedAnime, titleAnime };
+const searchedAnimeOrManga = atom({
+  key: "searched-anime",
+  default: "",
+});
+
+export { selectedAnime, titleAnime, searchedAnimeOrManga };

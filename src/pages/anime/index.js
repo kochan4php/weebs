@@ -26,7 +26,7 @@ const Anime = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getData = async (selectedAnime) => {
-    const requestAnime = await fetch(`${JIKAN_API}${selectedAnime}`);
+    const requestAnime = await fetch(`${JIKAN_API}${selectedAnime}?page=1`);
     const responseAnime = await requestAnime.json();
     setJikanAnime(responseAnime.data);
     setIsLoading(false);
@@ -43,7 +43,7 @@ const Anime = () => {
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">
-      <div className="container flex justRenderIfTruey-between items-center pt-4 pb-7">
+      <div className="container flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0 pt-4 pb-7">
         <RenderIfFalse isFalse={isLoading}>
           <TitleSection>{title}</TitleSection>
           <Dropdown dataDropdown={dataDropdown} onClick={clickHandler} />
@@ -54,7 +54,7 @@ const Anime = () => {
           <Loading />
         </RenderIfTrue>
         <RenderIfFalse isFalse={isLoading}>
-          <RenderIfTrue isTrue={jikanAnime}>
+          <RenderIfTrue isTrue={jikanAnime.length > 0}>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
               <For
                 each={jikanAnime}
@@ -73,7 +73,7 @@ const Anime = () => {
               />
             </div>
           </RenderIfTrue>
-          <RenderIfFalse isFalse={jikanAnime}>
+          <RenderIfFalse isFalse={jikanAnime.length === 0}>
             <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
           </RenderIfFalse>
         </RenderIfFalse>
