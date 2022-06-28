@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
+import action from "../../action";
 import {
   Button,
   Dropdown,
@@ -9,11 +10,9 @@ import {
   MainCard,
   TitleSection,
 } from "../../components";
-import JIKAN_API from "../../config/Jikan";
 import createRoute from "../../helper/createRoute";
 import { selectedAnime, titleAnime } from "../../store";
 import { For, RenderIfFalse, RenderIfTrue } from "../../utils";
-import action from "../../action";
 
 const { getAnimeWithPagination } = action;
 

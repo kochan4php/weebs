@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
+import action from "../../../action";
 import {
   Button,
   Dropdown,
@@ -9,10 +10,11 @@ import {
   MainCard,
   TitleSection,
 } from "../../../components";
-import JIKAN_API from "../../../config/Jikan";
 import createRoute from "../../../helper/createRoute";
 import { selectedAnime, titleAnime } from "../../../store";
 import { For, RenderIfFalse, RenderIfTrue } from "../../../utils";
+
+const { getAnimeWithPagination } = action;
 
 const dataDropdown = [
   createRoute("/seasons/now", "Airing Now"),
@@ -43,12 +45,10 @@ const AnimePagination = () => {
   };
 
   const getData = async (selectedAnime, page) => {
-    const request = await fetch(
-      `${JIKAN_API}${selectedAnime}?page=${page || 1}`
-    );
-    if (request.ok) {
-      const response = await request.json();
-      setJikanAnime(response.data);
+    const getData = await getAnimeWithPagination(selectedAnime, page);
+
+    if (getData) {
+      setJikanAnime(getData.data);
     } else {
       setIsError(true);
     }
