@@ -72,8 +72,8 @@ const Navbar = () => {
         <ul className="flex absolute text-lg font-semibold right-0 flex-col bg-slate-800 backdrop-blur-lg h-[70vh] md:h-[40vh] xl:h-[55vh] top-[75px] bottom-0 justify-evenly items-center -z-[199] w-[65%] md:w-[40%] lg:w-[30%] xl:w-[20%] transition-all duration-300 rounded-md border border-slate-600 navbar-nav px-8 md:px-0">
           <For
             each={routes}
-            render={({ path, name }, index) => (
-              <>
+            render={({ path, name }, index) => {
+              return (
                 <li key={index}>
                   <Link href={path}>
                     <a
@@ -85,8 +85,8 @@ const Navbar = () => {
                     </a>
                   </Link>
                 </li>
-              </>
-            )}
+              );
+            }}
           />
           <li className="md:hidden">
             <form onSubmit={submitHandler}>

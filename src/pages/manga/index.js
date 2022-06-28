@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import action from "../../action";
 import {
+  Button,
   ErrorMessage,
   Loading,
   MainCard,
   TitleSection,
 } from "../../components";
-import { RenderIfTrue, RenderIfFalse, For } from "../../utils";
+import { For, RenderIfFalse, RenderIfTrue } from "../../utils";
 
 const { getTopManga } = action;
 
@@ -60,6 +61,16 @@ const Manga = () => {
           </RenderIfFalse>
         </RenderIfFalse>
       </div>
+      <RenderIfFalse isFalse={isLoading}>
+        <div className="container flex gap-6 justify-center my-6">
+          <Button fullWidth bgcolor="bg-pink-700">
+            &laquo; Previous Manga
+          </Button>
+          <Button fullWidth bgcolor="bg-pink-700">
+            Next Manga &raquo;
+          </Button>
+        </div>
+      </RenderIfFalse>
     </section>
   );
 };

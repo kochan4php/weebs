@@ -25,8 +25,7 @@ const DetailAnime = () => {
 
   const getData = async (id) => {
     const getDetailData = await getDetailAnime(id);
-    console.log(getDetailData);
-    if (getDetailData) setDetailData(getDetailData);
+    if (await getDetailData) setDetailData(await getDetailData);
     else setIsError(true);
     setIsLoading(false);
   };

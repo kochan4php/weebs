@@ -1,5 +1,11 @@
 import JIKAN_API from "../config/Jikan";
 
+const getAnimeWithPagination = async (selectedAnime, page) => {
+  const request = await fetch(`${JIKAN_API}${selectedAnime}?page=${page || 1}`);
+  if (request.ok) return await request.json();
+  else return;
+};
+
 const getAnimeSearch = async (keyword) => {
   const request = await fetch(`${JIKAN_API}/anime?q=${keyword}`);
 
@@ -177,6 +183,7 @@ const getPhotoCharacter = async (id) => {
 };
 
 export default {
+  getAnimeWithPagination,
   getAnimeSearch,
   getMangaSearch,
   getAnimeVideos,

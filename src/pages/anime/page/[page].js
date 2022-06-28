@@ -8,14 +8,11 @@ import {
   Loading,
   MainCard,
   TitleSection,
-} from "../../components";
-import JIKAN_API from "../../config/Jikan";
-import createRoute from "../../helper/createRoute";
-import { selectedAnime, titleAnime } from "../../store";
-import { For, RenderIfFalse, RenderIfTrue } from "../../utils";
-import action from "../../action";
-
-const { getAnimeWithPagination } = action;
+} from "../../../components";
+import JIKAN_API from "../../../config/Jikan";
+import createRoute from "../../../helper/createRoute";
+import { selectedAnime, titleAnime } from "../../../store";
+import { For, RenderIfFalse, RenderIfTrue } from "../../../utils";
 
 const dataDropdown = [
   createRoute("/seasons/now", "Airing Now"),
@@ -23,7 +20,7 @@ const dataDropdown = [
   createRoute("/top/anime", "Top Anime"),
 ];
 
-const Anime = () => {
+const AnimePagination = () => {
   const router = useRouter();
   const { page } = router.query;
 
@@ -34,16 +31,24 @@ const Anime = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
+  const previousPageHandler = () => {
+    setIsLoading(true);
+    if (page > 2) router.push(`/anime/page/${parseInt(page) - 1}`);
+    else router.push(`/anime`);
+  };
+
   const nextPageHandler = () => {
     setIsLoading(true);
-    router.push(`/anime/page/2`);
+    router.push(`/anime/page/${parseInt(page) + 1}`);
   };
 
   const getData = async (selectedAnime, page) => {
-    const getData = await getAnimeWithPagination(selectedAnime, page);
-
-    if (getData) {
-      setJikanAnime(getData.data);
+    const request = await fetch(
+      `${JIKAN_API}${selectedAnime}?page=${page || 1}`
+    );
+    if (request.ok) {
+      const response = await request.json();
+      setJikanAnime(response.data);
     } else {
       setIsError(true);
     }
@@ -51,11 +56,10 @@ const Anime = () => {
     setIsLoading(false);
   };
 
-  const clickHandler = (e) => {
+  const dropdownHandler = (e) => {
+    router.push("/anime");
     setTitle(e.target.innerText);
     setAnime(e.target.dataset.value);
-    setIsLoading(true);
-    router.push("/anime");
   };
 
   useEffect(() => {
@@ -72,7 +76,7 @@ const Anime = () => {
       <RenderIfFalse isFalse={isError}>
         <div className="container flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0 pt-4 pb-7">
           <TitleSection>{title}</TitleSection>
-          <Dropdown dataDropdown={dataDropdown} onClick={clickHandler} />
+          <Dropdown dataDropdown={dataDropdown} onClick={dropdownHandler} />
         </div>
         <div className="container px-0 lg:px-4">
           <RenderIfTrue isTrue={isLoading}>
@@ -107,6 +111,13 @@ const Anime = () => {
         </div>
         <RenderIfFalse isFalse={isError}>
           <div className="container flex gap-6 justify-center my-6">
+            <Button
+              fullWidth
+              bgcolor="bg-pink-700"
+              onClick={previousPageHandler}
+            >
+              &laquo; Previous
+            </Button>
             <Button fullWidth bgcolor="bg-pink-700" onClick={nextPageHandler}>
               Next &raquo;
             </Button>
@@ -117,4 +128,4 @@ const Anime = () => {
   );
 };
 
-export default Anime;
+export default AnimePagination;
