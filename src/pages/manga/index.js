@@ -55,7 +55,7 @@ const Manga = () => {
               />
             </div>
           </RenderIfTrue>
-          <RenderIfFalse isFalse={jikanManga.length === 0}>
+          <RenderIfFalse isFalse={jikanManga.length > 0}>
             <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
           </RenderIfFalse>
         </RenderIfFalse>

@@ -73,7 +73,7 @@ const Anime = () => {
               />
             </div>
           </RenderIfTrue>
-          <RenderIfFalse isFalse={jikanAnime.length === 0}>
+          <RenderIfFalse isFalse={jikanAnime.length > 0}>
             <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
           </RenderIfFalse>
         </RenderIfFalse>

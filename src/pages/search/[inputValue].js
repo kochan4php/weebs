@@ -56,13 +56,13 @@ const SearchAnimeOrManga = () => {
             <RenderIfTrue isTrue={resultAnime.length > 0}>
               <div className="sm:flex items-center mb-4 py-4 hidden">
                 <div className="flex-grow h-px bg-gray-400"></div>
-                <h1 className="flex-shrink text-slate-300 px-4 font-semibold text-2xl md:text-3xl pb-2 selection:bg-emerald-500 selection:text-emerald-900">
+                <h1 className="flex-shrink text-slate-400 px-4 font-semibold text-2xl md:text-3xl pb-2 selection:bg-emerald-500 selection:text-emerald-900">
                   Anime of {inputValue}
                 </h1>
                 <div className="flex-grow h-px bg-gray-400"></div>
               </div>
               <div className="mb-4 py-4 sm:hidden">
-                <h1 className="text-2xl text-center selection:bg-emerald-500 selection:text-emerald-900">
+                <h1 className="text-2xl text-center selection:bg-emerald-500 selection:text-emerald-900 text-slate-400">
                   Anime of {inputValue}
                 </h1>
               </div>
@@ -87,13 +87,13 @@ const SearchAnimeOrManga = () => {
             <RenderIfTrue isTrue={resultManga.length > 0}>
               <div className="sm:flex items-center mb-4 py-4 hidden">
                 <div className="flex-grow h-px bg-gray-400"></div>
-                <h1 className="flex-shrink text-slate-300 px-4 font-semibold text-2xl md:text-3xl pb-2 selection:bg-emerald-500 selection:text-emerald-900">
+                <h1 className="flex-shrink text-slate-400 px-4 font-semibold text-2xl md:text-3xl pb-2 selection:bg-emerald-500 selection:text-emerald-900">
                   Manga of {inputValue}
                 </h1>
                 <div className="flex-grow h-px bg-gray-400"></div>
               </div>
               <div className="mb-4 py-4 sm:hidden">
-                <h1 className="text-2xl text-center selection:bg-emerald-500 selection:text-emerald-900">
+                <h1 className="text-2xl text-center selection:bg-emerald-500 selection:text-emerald-900 text-slate-400">
                   Manga of {inputValue}
                 </h1>
               </div>
