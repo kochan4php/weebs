@@ -2,23 +2,34 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import createRoute from "../../helper/createRoute";
-import { For } from "../../utils";
+import { For, RenderIfTrue } from "../../utils";
 
 const routes = [
   createRoute("/", "Home"),
   createRoute("/about", "About"),
   createRoute("/anime", "Anime"),
   createRoute("/manga", "Manga"),
+  createRoute("/characters", "Characters"),
 ];
 
 const Navbar = () => {
   const router = useRouter();
   const currentPath = router.asPath.split("/")[1];
   const [inputValue, setInputValue] = useState("");
+  console.log(currentPath);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    router.push(`/search/${inputValue.split(" ").join("%20")}`);
+    if (
+      currentPath === "anime" ||
+      currentPath === "about" ||
+      currentPath === "manga" ||
+      currentPath === "" ||
+      currentPath === "search"
+    )
+      router.push(`/search/${inputValue.split(" ").join("%20")}`);
+    else if (currentPath === "characters" || currentPath === "search-character")
+      router.push(`/search-character/${inputValue.split(" ").join("%20")}`);
     setInputValue("");
   };
 
@@ -77,7 +88,7 @@ const Navbar = () => {
                 <li key={index}>
                   <Link href={path}>
                     <a
-                      className={`transition-all duration-200 py-1.5 border-b-2 border-transparent hover:border-b-slate-200 selection:bg-emerald-500 selection:text-emerald-900 ${
+                      className={`transition-all duration-200 py-1 border-b-2 border-transparent hover:border-b-slate-200 selection:bg-emerald-500 selection:text-emerald-900 ${
                         currentPath === path.split("/")[1] ? "active" : ""
                       }`}
                     >
@@ -103,19 +114,49 @@ const Navbar = () => {
           </li>
         </ul>
 
-        <div className="hidden md:block">
-          <form onSubmit={submitHandler}>
-            <input
-              type="search"
-              name="search"
-              className="search-input outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all"
-              placeholder="Search anime or manga"
-              autoComplete="off"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-          </form>
-        </div>
+        <RenderIfTrue
+          isTrue={
+            currentPath === "anime" ||
+            currentPath === "about" ||
+            currentPath === "manga" ||
+            currentPath === "" ||
+            currentPath === "search"
+          }
+        >
+          <div className="hidden md:block">
+            <form onSubmit={submitHandler}>
+              <input
+                type="search"
+                name="search"
+                className="search-input outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all"
+                placeholder="Search anime or manga"
+                autoComplete="off"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            </form>
+          </div>
+        </RenderIfTrue>
+
+        <RenderIfTrue
+          isTrue={
+            currentPath === "characters" || currentPath === "search-character"
+          }
+        >
+          <div className="hidden md:block">
+            <form onSubmit={submitHandler}>
+              <input
+                type="search"
+                name="search"
+                className="search-input outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all"
+                placeholder="Search characters"
+                autoComplete="off"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            </form>
+          </div>
+        </RenderIfTrue>
 
         <div className="relative">
           <input

@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import action from "../../../../action";
+import action from "../../../action";
 import {
   ErrorMessage,
   Loading,
   MainCard,
   TitleSection,
-} from "../../../../components";
-import routesAnime from "../../../../helper/_routesAnime";
-import LayoutDetailPage from "../../../../layout/layoutDetailPage";
-import { RenderIfTrue, RenderIfFalse, For } from "../../../../utils";
+} from "../../../components";
+import routesAnime from "../../../helper/_routesAnime";
+import LayoutDetailPage from "../../../layout/layoutDetailPage";
+import { RenderIfTrue, RenderIfFalse, For } from "../../../utils";
 
 const { getAnimeCharacters } = action;
 
@@ -58,7 +58,7 @@ const Characters = () => {
 
                     return (
                       <MainCard
-                        path={`/anime/${animeId}/characters/${character?.mal_id}`}
+                        path={`/characters/details/${character?.mal_id}`}
                         id={character?.mal_id}
                         image={character?.images?.webp?.image_url}
                         key={character?.mal_id}

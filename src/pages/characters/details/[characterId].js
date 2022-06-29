@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import action from "../../../../action";
+import action from "../../../action";
 import {
   ErrorMessage,
   Loading,
@@ -10,8 +10,8 @@ import {
   Synopsis,
   Text,
   TitleSection,
-} from "../../../../components";
-import { RenderIfTrue, RenderIfFalse, For } from "../../../../utils";
+} from "../../../components";
+import { RenderIfTrue, RenderIfFalse, For } from "../../../utils";
 
 const { getDetailCharacter, getPhotoCharacter } = action;
 
@@ -77,9 +77,24 @@ const DetailCharacter = () => {
                 </div>
               </div>
             </div>
-            <Synopsis>
-              {detailCharacter?.about ? detailCharacter?.about : "No synopsis."}
-            </Synopsis>
+            <RenderIfTrue isTrue={detailCharacter?.about}>
+              <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
+                <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
+                  About
+                </h1>
+                <div className="text-md md:text-lg text-justify md:text-left selection:bg-green-500 selection:text-green-900">
+                  <p
+                    className="leading-loose"
+                    dangerouslySetInnerHTML={{
+                      __html: detailCharacter?.about?.replace(
+                        /(?:\r\n|\r|\n)/g,
+                        "<br />"
+                      ),
+                    }}
+                  />
+                </div>
+              </div>
+            </RenderIfTrue>
             <RenderIfTrue isTrue={detailCharacter?.anime?.length > 0}>
               <div className="mt-10 lg:mt-0 md:pt-10 lg:pt-16">
                 <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">

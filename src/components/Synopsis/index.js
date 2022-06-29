@@ -5,9 +5,14 @@ const Synopsis = ({ children }) => (
     <h1 className="text-3xl md:text-4xl mb-7 selection:bg-emerald-500 selection:text-emerald-900">
       Synopsis
     </h1>
-    <p className="text-md md:text-lg text-justify md:text-left selection:bg-green-500 selection:text-green-900">
-      {children}
-    </p>
+    <div className="text-md md:text-lg text-justify md:text-left selection:bg-green-500 selection:text-green-900">
+      <p
+        className="leading-loose"
+        dangerouslySetInnerHTML={{
+          __html: children?.replace(/(?:\r\n|\r|\n)/g, "<br />"),
+        }}
+      />
+    </div>
   </div>
 );
 
