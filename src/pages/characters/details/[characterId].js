@@ -129,7 +129,7 @@ const DetailCharacter = () => {
                     render={(data) => (
                       <MainCard
                         key={data?.manga?.mal_id}
-                        path="novel"
+                        path={`/manga/${data?.manga?.mal_id}/details`}
                         id={data?.manga?.mal_id}
                         image={data?.manga?.images?.webp?.large_image_url}
                         title={data?.manga?.title}

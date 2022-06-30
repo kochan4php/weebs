@@ -58,7 +58,7 @@ const Characters = () => {
 
                     return (
                       <MainCard
-                        path={`/characters/details/${mal_id}`}
+                        path={`/characters/details/${character?.mal_id}`}
                         id={character?.mal_id}
                         image={character?.images?.webp?.image_url}
                         key={character?.mal_id}
