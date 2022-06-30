@@ -34,22 +34,28 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const navbar = document.querySelector("nav");
     const toggle = document.getElementById("toggle");
     const navUl = document.querySelector("nav ul");
     const searchInput = document.querySelector(".search-input");
 
-    window.onscroll = function () {
-      if (window.pageYOffset > 0) {
-        navbar.classList.add("navbar-fixed");
-      } else {
-        navbar.classList.remove("navbar-fixed");
-      }
-    };
-
     toggle.addEventListener("click", function () {
-      this.classList.toggle("hamburger-active");
-      navUl.classList.toggle("slide");
+      if (!navUl.classList.contains("slide")) {
+        toggle.classList.add("hamburger-active");
+        navUl.classList.remove("hidden");
+        navUl.classList.add("flex");
+
+        setTimeout(() => {
+          navUl.classList.add("slide");
+        }, 10);
+      } else {
+        toggle.classList.remove("hamburger-active");
+        navUl.classList.remove("slide");
+
+        setTimeout(() => {
+          navUl.classList.remove("flex");
+          navUl.classList.add("hidden");
+        }, 100);
+      }
     });
 
     window.addEventListener("click", function (e) {
@@ -80,7 +86,7 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <ul className="flex absolute text-lg font-semibold right-0 flex-col bg-slate-800 backdrop-blur-lg h-[70vh] md:h-[40vh] xl:h-[55vh] top-[75px] bottom-0 justify-evenly items-center -z-[199] w-[65%] md:w-[40%] lg:w-[30%] xl:w-[20%] transition-all duration-300 rounded-md border border-slate-600 navbar-nav px-8 md:px-0">
+        <ul className="absolute text-lg font-semibold right-0 flex-col bg-slate-800 backdrop-blur-lg h-[70vh] md:h-[40vh] xl:h-[55vh] top-[75px] bottom-0 justify-evenly items-center -z-[199] w-[65%] md:w-[40%] lg:w-[30%] xl:w-[20%] transition-all duration-200 rounded-md border border-slate-600 navbar-nav px-8 md:px-0 hidden">
           <For
             each={routes}
             render={({ path, name }, index) => {
