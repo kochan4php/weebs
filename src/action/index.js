@@ -1,7 +1,10 @@
 import JIKAN_API from "../config/Jikan";
 
-const getAnimeWithPagination = async (selectedAnime, page) => {
-  const request = await fetch(`${JIKAN_API}${selectedAnime}?page=${page || 1}`);
+const getAnimeWithPagination = async (selectedAnime, page = undefined) => {
+  const request =
+    page === undefined
+      ? await fetch(`${JIKAN_API}${selectedAnime}`)
+      : await fetch(`${JIKAN_API}${selectedAnime}?page=${page}`);
   if (request.ok) return await request.json();
   else return;
 };

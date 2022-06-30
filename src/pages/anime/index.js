@@ -10,16 +10,14 @@ import {
   MainCard,
   TitleSection,
 } from "../../components";
-import createRoute from "../../helper/createRoute";
+import dataDropdownAnime from "../../helper/_dataDropdownAnime";
 import { selectedAnime, titleAnime } from "../../store";
 import { For, RenderIfFalse, RenderIfTrue } from "../../utils";
-import dataDropdownAnime from "../../helper/_dataDropdownAnime";
 
 const { getAnimeWithPagination } = action;
 
 const Anime = () => {
   const router = useRouter();
-  const { page } = router.query;
 
   const [anime, setAnime] = useRecoilState(selectedAnime);
   const [title, setTitle] = useRecoilState(titleAnime);
@@ -34,7 +32,7 @@ const Anime = () => {
     router.push(`/anime/page/2`);
   };
 
-  const getData = async (selectedAnime, page) => {
+  const getData = async (selectedAnime, page = undefined) => {
     const getData = await getAnimeWithPagination(selectedAnime, page);
 
     if (getData) {
@@ -48,15 +46,14 @@ const Anime = () => {
   };
 
   const dropdownHandler = (e) => {
+    setIsLoading(true);
     setTitle(e.target.innerText);
     setAnime(e.target.dataset.value);
-    setIsLoading(true);
-    router.push("/anime");
   };
 
   useEffect(() => {
-    getData(anime, page);
-  }, [anime, title, page]);
+    getData(anime);
+  }, [anime, title]);
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 py-4 min-h-screen">

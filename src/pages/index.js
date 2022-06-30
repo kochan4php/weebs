@@ -1,4 +1,5 @@
-import { ErrorMessage, Hero, MainCard, TitleSection } from "../components";
+import { useRouter } from "next/router";
+import { Button, ErrorMessage, MainCard, TitleSection } from "../components";
 import JIKAN_URL from "../config/Jikan";
 import { For, RenderIfFalse, RenderIfTrue } from "../utils";
 
@@ -15,11 +16,40 @@ export const getServerSideProps = async () => {
 
 const Home = ({ data }) => {
   const getAnimeNow = data.data;
+  const router = useRouter();
 
   return (
     <>
-      <section className="bg-slate-800 bg-[url('/img/spy-mobile.webp')] md:bg-[url('/img/spy.jpg')] min-w-full bg-cover bg-top bg-no-repeat">
-        <Hero />
+      <section
+        className="bg-slate-800 min-w-full bg-cover bg-center bg-no-repeat object-cover"
+        style={{
+          backgroundImage: `url(${getAnimeNow[0]?.trailer?.images?.maximum_image_url})`,
+        }}
+      >
+        <section className="min-h-[40vh] sm:min-h-[50vh] lg:min-h-[70vh] xl:min-h-[80vh] 2xl:min-h-[90vh] bg-slate-800 bg-opacity-40 backdrop-blur-lg backdrop-brightness-90 flex items-center justify-start px-2 md:px-6 pb-6">
+          <div className="container max-w-full lg:max-w-3xl">
+            <div className="my-6">
+              <h1 className="text-slate-50 text-2xl md:text-4xl font-semibold mb-4">
+                {getAnimeNow[0]?.title}
+              </h1>
+            </div>
+            <div className="my-6">
+              <p className="text-lg md:text-2xl text-slate-200 font-medium">
+                {getAnimeNow[0]?.synopsis}
+              </p>
+            </div>
+            <div className="my-6">
+              <Button
+                onClick={() =>
+                  router.push(`/anime/${getAnimeNow[0]?.mal_id}/details`)
+                }
+                width="w-full"
+              >
+                Detail
+              </Button>
+            </div>
+          </div>
+        </section>
       </section>
       <section className="min-h-screen min-w-full bg-slate-800 py-10">
         <div className="mb-7 container">

@@ -6,7 +6,7 @@ const For = ({ each, render }) =>
 
 For.propTypes = {
   each: PropTypes.array.isRequired,
-  render: PropTypes.node.isRequired,
+  render: PropTypes.func.isRequired,
 };
 
 export default For;
