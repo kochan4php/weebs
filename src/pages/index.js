@@ -22,10 +22,10 @@ const Home = ({ data }) => {
         <Hero />
       </section>
       <section className="min-h-screen min-w-full bg-slate-800 py-10">
+        <div className="mb-7 container">
+          <TitleSection>Airing Now</TitleSection>
+        </div>
         <div className="container px-0 md:px-4 min-h-screen">
-          <div className="mb-7 ">
-            <TitleSection>Airing Now</TitleSection>
-          </div>
           <RenderIfTrue isTrue={getAnimeNow.length > 0}>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
               <For

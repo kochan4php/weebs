@@ -13,14 +13,9 @@ import {
 import createRoute from "../../../helper/createRoute";
 import { selectedAnime, titleAnime } from "../../../store";
 import { For, RenderIfFalse, RenderIfTrue } from "../../../utils";
+import dataDropdownAnime from "../../../helper/_dataDropdownAnime";
 
 const { getAnimeWithPagination } = action;
-
-const dataDropdown = [
-  createRoute("/seasons/now", "Airing Now"),
-  createRoute("/seasons/upcoming", "Upcoming Anime"),
-  createRoute("/top/anime", "Top Anime"),
-];
 
 const AnimePagination = () => {
   const router = useRouter();
@@ -29,6 +24,7 @@ const AnimePagination = () => {
   const [anime, setAnime] = useRecoilState(selectedAnime);
   const [title, setTitle] = useRecoilState(titleAnime);
 
+  const [paginate, setPaginate] = useState({});
   const [jikanAnime, setJikanAnime] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -49,6 +45,7 @@ const AnimePagination = () => {
 
     if (getData) {
       setJikanAnime(getData.data);
+      setPaginate(getData.pagination);
     } else {
       setIsError(true);
     }
@@ -65,9 +62,10 @@ const AnimePagination = () => {
   useEffect(() => {
     getData(anime, page);
   }, [anime, title, page]);
+  console.log(paginate);
 
   return (
-    <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">
+    <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 py-4 min-h-screen">
       <RenderIfTrue isTrue={isError}>
         <div className="container">
           <ErrorMessage message="Ada sedikit kesalahan pada API nya, coba refresh kembali." />
@@ -76,7 +74,10 @@ const AnimePagination = () => {
       <RenderIfFalse isFalse={isError}>
         <div className="container flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0 pt-4 pb-7">
           <TitleSection>{title}</TitleSection>
-          <Dropdown dataDropdown={dataDropdown} onClick={dropdownHandler} />
+          <Dropdown
+            dataDropdown={dataDropdownAnime}
+            onClick={dropdownHandler}
+          />
         </div>
         <div className="container px-0 lg:px-4">
           <RenderIfTrue isTrue={isLoading}>
@@ -109,19 +110,39 @@ const AnimePagination = () => {
             </RenderIfFalse>
           </RenderIfFalse>
         </div>
-        <RenderIfFalse isFalse={isError}>
-          <div className="container flex gap-6 justify-center my-6">
-            <Button
-              fullWidth
-              bgcolor="bg-pink-700"
-              onClick={previousPageHandler}
-            >
-              &laquo; Previous
-            </Button>
-            <Button fullWidth bgcolor="bg-pink-700" onClick={nextPageHandler}>
-              Next &raquo;
-            </Button>
-          </div>
+        <RenderIfFalse isFalse={isError && isLoading}>
+          <RenderIfFalse isFalse={isLoading}>
+            <div className="md:hidden container my-6 flex justify-center items-center">
+              <div>
+                <p className="text-lg md:text-xl text-center">
+                  Page {paginate.current_page} of {paginate.last_visible_page}
+                </p>
+              </div>
+            </div>
+            <div className="container flex gap-6 justify-center my-6">
+              <Button
+                width="w-full md:w-1/4"
+                bgcolor="bg-pink-700"
+                onClick={previousPageHandler}
+              >
+                &laquo; Previous
+              </Button>
+              <div className="hidden md:flex items-center justify-center">
+                <p className="text-lg md:text-xl text-center">
+                  Page {paginate.current_page} of {paginate.last_visible_page}
+                </p>
+              </div>
+              <RenderIfTrue isTrue={paginate.has_next_page}>
+                <Button
+                  width="w-full md:w-1/4"
+                  bgcolor="bg-pink-700"
+                  onClick={nextPageHandler}
+                >
+                  Next &raquo;
+                </Button>
+              </RenderIfTrue>
+            </div>
+          </RenderIfFalse>
         </RenderIfFalse>
       </RenderIfFalse>
     </section>
