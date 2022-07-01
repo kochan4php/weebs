@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import createRoute from "../../helper/createRoute";
-import { For, RenderIfTrue } from "../../utils";
+import { For } from "../../utils";
 
 const routes = [
   createRoute("/", "Home"),
@@ -16,16 +16,16 @@ const Navbar = () => {
   const router = useRouter();
   const currentPath = router.asPath.split("/")[1];
   const [inputValue, setInputValue] = useState("");
-  console.log(currentPath);
 
+  const searchFunc = (e) => setInputValue(e.target.value);
   const submitHandler = (e) => {
     e.preventDefault();
     if (
       currentPath === "anime" ||
       currentPath === "about" ||
       currentPath === "manga" ||
-      currentPath === "" ||
-      currentPath === "search"
+      currentPath === "search" ||
+      currentPath === ""
     )
       router.push(`/search/${inputValue.split(" ").join("%20")}`);
     else if (currentPath === "characters" || currentPath === "search-character")
@@ -36,50 +36,51 @@ const Navbar = () => {
   useEffect(() => {
     const toggle = document.getElementById("toggle");
     const navUl = document.querySelector("nav ul");
-    const searchInput = document.querySelector(".search-input");
+    const searchInput = document.querySelector("form input.search-input");
 
-    toggle.addEventListener("click", function () {
-      if (!navUl.classList.contains("slide")) {
-        toggle.classList.add("hamburger-active");
-        navUl.classList.remove("hidden");
-        navUl.classList.add("flex");
+    const openNavMenu = () => {
+      toggle.classList.add("hamburger-active");
+      navUl.classList.remove("hidden");
+      navUl.classList.add("flex");
 
-        setTimeout(() => {
-          navUl.classList.add("slide");
-        }, 10);
-      } else {
-        toggle.classList.remove("hamburger-active");
-        navUl.classList.remove("slide");
+      setTimeout(() => {
+        navUl.classList.add("slide");
+      }, 10);
+    };
 
-        setTimeout(() => {
-          navUl.classList.remove("flex");
-          navUl.classList.add("hidden");
-        }, 100);
-      }
-    });
+    const closeNavMenu = () => {
+      toggle.classList.remove("hamburger-active");
+      navUl.classList.remove("slide");
 
-    window.addEventListener("click", function (e) {
-      if (
-        e.target !== navUl &&
-        e.target !== toggle &&
-        e.target !== searchInput
-      ) {
-        toggle.classList.remove("hamburger-active");
-        navUl.classList.remove("slide");
+      setTimeout(() => {
+        navUl.classList.remove("flex");
+        navUl.classList.add("hidden");
+      }, 100);
+    };
 
-        setTimeout(() => {
-          navUl.classList.remove("flex");
-          navUl.classList.add("hidden");
-        }, 100);
-      }
-    });
+    const toggleFunc = () => {
+      if (!navUl.classList.contains("slide")) openNavMenu();
+      else closeNavMenu();
+    };
 
-    searchInput.addEventListener("keypress", function (e) {
-      if (e.key === "Enter") {
-        navUl.classList.remove("slide");
-        toggle.classList.remove("hamburger-active");
-      }
-    });
+    const searchInputKeypressFunc = (e) => {
+      if (e.key === "Enter") closeNavMenu();
+    };
+
+    const windowClickFunc = (e) => {
+      if (e.target !== navUl && e.target !== toggle && e.target !== searchInput)
+        closeNavMenu();
+    };
+
+    toggle.addEventListener("click", toggleFunc);
+    searchInput.addEventListener("keypress", searchInputKeypressFunc);
+    window.addEventListener("click", windowClickFunc);
+
+    return () => {
+      toggle.removeEventListener("click", toggleFunc);
+      searchInput.removeEventListener("keypress", searchInputKeypressFunc);
+      window.removeEventListener("click", windowClickFunc);
+    };
   }, []);
 
   return (
@@ -90,7 +91,6 @@ const Navbar = () => {
             <Link href="/">Weebs</Link>
           </h1>
         </div>
-
         <ul className="absolute text-lg font-semibold right-0 flex-col bg-slate-800 backdrop-blur-lg h-[70vh] md:h-[40vh] xl:h-[55vh] top-[75px] bottom-0 justify-evenly items-center -z-[199] w-[65%] md:w-[40%] lg:w-[30%] xl:w-[20%] transition-all duration-200 rounded-md border border-slate-600 navbar-nav px-8 md:px-0 hidden">
           <For
             each={routes}
@@ -115,60 +115,44 @@ const Navbar = () => {
               <input
                 type="search"
                 name="search"
-                className="search-input outline-none px-5 py-1.5 rounded-full bg-slate-700 w-full text-base ring-4 focus:ring-sky-500 transition-all"
-                placeholder="Search anime or manga"
+                className="search-input truncate outline-none px-5 py-1.5 rounded-full bg-slate-700 w-full text-base ring-4 focus:ring-sky-500 transition-all"
+                placeholder={
+                  currentPath === "anime" ||
+                  currentPath === "about" ||
+                  currentPath === "manga" ||
+                  currentPath === "search" ||
+                  currentPath === ""
+                    ? "Search Anime or Manga"
+                    : "Search Characters"
+                }
                 autoComplete="off"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={searchFunc}
               />
             </form>
           </li>
         </ul>
-
-        <RenderIfTrue
-          isTrue={
-            currentPath === "anime" ||
-            currentPath === "about" ||
-            currentPath === "manga" ||
-            currentPath === "" ||
-            currentPath === "search"
-          }
-        >
-          <div className="hidden md:block">
-            <form onSubmit={submitHandler}>
-              <input
-                type="search"
-                name="search"
-                className="search-input outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all"
-                placeholder="Search anime or manga"
-                autoComplete="off"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-            </form>
-          </div>
-        </RenderIfTrue>
-
-        <RenderIfTrue
-          isTrue={
-            currentPath === "characters" || currentPath === "search-character"
-          }
-        >
-          <div className="hidden md:block">
-            <form onSubmit={submitHandler}>
-              <input
-                type="search"
-                name="search"
-                className="search-input outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all"
-                placeholder="Search characters"
-                autoComplete="off"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-            </form>
-          </div>
-        </RenderIfTrue>
-
+        <div className="hidden md:block">
+          <form onSubmit={submitHandler}>
+            <input
+              type="search"
+              name="search"
+              className="search-input truncate outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all"
+              placeholder={
+                currentPath === "anime" ||
+                currentPath === "about" ||
+                currentPath === "manga" ||
+                currentPath === "search" ||
+                currentPath === ""
+                  ? "Search Anime or Manga"
+                  : "Search Characters"
+              }
+              autoComplete="off"
+              value={inputValue}
+              onChange={searchFunc}
+            />
+          </form>
+        </div>
         <div className="relative">
           <input
             type="checkbox"
