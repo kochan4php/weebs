@@ -64,8 +64,13 @@ const Navbar = () => {
         e.target !== toggle &&
         e.target !== searchInput
       ) {
-        navUl.classList.remove("slide");
         toggle.classList.remove("hamburger-active");
+        navUl.classList.remove("slide");
+
+        setTimeout(() => {
+          navUl.classList.remove("flex");
+          navUl.classList.add("hidden");
+        }, 100);
       }
     });
 
