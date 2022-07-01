@@ -15,6 +15,12 @@ const getCharactersWithPagination = async (page) => {
   else return;
 };
 
+const getMangaWithPagination = async (page) => {
+  const request = await fetch(`${JIKAN_API}/top/manga?page=${page || 1}`);
+  if (request.ok) return await request.json();
+  else return;
+};
+
 const getCharacterSearch = async (keyword) => {
   const request = await fetch(`${JIKAN_API}/characters?q=${keyword}`);
 
@@ -136,17 +142,6 @@ const getDetailAnime = async (id) => {
   }
 };
 
-const getTopManga = async () => {
-  const request = await fetch(`${JIKAN_API}/top/manga`);
-
-  if (request.ok) {
-    const response = await request.json();
-    return response.data;
-  } else {
-    return;
-  }
-};
-
 const getDetailManga = async (id) => {
   const request = await fetch(`${JIKAN_API}/manga/${id}/full`);
 
@@ -205,6 +200,7 @@ const getPhotoCharacter = async (id) => {
 export default {
   getAnimeWithPagination,
   getCharactersWithPagination,
+  getMangaWithPagination,
   getAnimeSearch,
   getCharacterSearch,
   getMangaSearch,
@@ -214,7 +210,6 @@ export default {
   getDetailAnime,
   getAnimeStats,
   getMangaStats,
-  getTopManga,
   getDetailManga,
   getDetailCharacter,
   getPhotoAnime,

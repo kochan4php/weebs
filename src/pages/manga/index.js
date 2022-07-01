@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import action from "../../action";
 import {
   Button,
@@ -9,17 +10,27 @@ import {
 } from "../../components";
 import { For, RenderIfFalse, RenderIfTrue } from "../../utils";
 
-const { getTopManga } = action;
+const { getMangaWithPagination } = action;
 
 const Manga = () => {
+  const router = useRouter();
+
+  const [paginate, setPaginate] = useState({});
   const [jikanManga, setJikanManga] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const getData = async () => {
-    const response = await getTopManga();
-    if (response) setJikanManga(response);
-    else setIsError(true);
+  const nextPageHandler = () => {
+    setIsLoading(true);
+    router.push(`/manga/page/2`);
+  };
+
+  const getData = async (page) => {
+    const res = await getMangaWithPagination(page);
+    if (res) {
+      setJikanManga(res.data);
+      setPaginate(res.pagination);
+    } else setIsError(true);
     setIsLoading(false);
   };
 
@@ -61,15 +72,32 @@ const Manga = () => {
           </RenderIfFalse>
         </RenderIfFalse>
       </div>
-      <RenderIfFalse isFalse={isLoading}>
-        <div className="container flex gap-6 justify-center my-6">
-          <Button fullWidth bgcolor="bg-pink-700">
-            &laquo; Previous Manga
-          </Button>
-          <Button fullWidth bgcolor="bg-pink-700">
-            Next Manga &raquo;
-          </Button>
-        </div>
+      <RenderIfFalse isFalse={isError}>
+        <RenderIfFalse isFalse={isLoading}>
+          <div className="md:hidden container my-6 flex justify-center items-center">
+            <div>
+              <p className="text-lg md:text-xl text-center">
+                Page {paginate?.current_page} of {paginate?.last_visible_page}
+              </p>
+            </div>
+          </div>
+          <div className="container flex gap-6 justify-center my-6">
+            <div className="hidden md:flex items-center justify-center">
+              <p className="text-lg md:text-xl text-center">
+                Page {paginate?.current_page} of {paginate?.last_visible_page}
+              </p>
+            </div>
+            <RenderIfTrue isTrue={paginate?.has_next_page}>
+              <Button
+                width="w-full md:w-1/4"
+                bgcolor="bg-pink-700"
+                onClick={nextPageHandler}
+              >
+                Next &raquo;
+              </Button>
+            </RenderIfTrue>
+          </div>
+        </RenderIfFalse>
       </RenderIfFalse>
     </section>
   );

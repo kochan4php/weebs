@@ -32,16 +32,12 @@ const Anime = () => {
     router.push(`/anime/page/2`);
   };
 
-  const getData = async (selectedAnime, page = undefined) => {
-    const getData = await getAnimeWithPagination(selectedAnime, page);
-
-    if (getData) {
-      setJikanAnime(getData.data);
-      setPaginate(getData.pagination);
-    } else {
-      setIsError(true);
-    }
-
+  const getData = async (selectedAnime, page) => {
+    const res = await getAnimeWithPagination(selectedAnime, page);
+    if (res) {
+      setJikanAnime(res.data);
+      setPaginate(res.pagination);
+    } else setIsError(true);
     setIsLoading(false);
   };
 
@@ -106,17 +102,17 @@ const Anime = () => {
             <div className="md:hidden container my-6 flex justify-center items-center">
               <div>
                 <p className="text-lg md:text-xl text-center">
-                  Page {paginate.current_page} of {paginate.last_visible_page}
+                  Page {paginate?.current_page} of {paginate?.last_visible_page}
                 </p>
               </div>
             </div>
             <div className="container flex gap-6 justify-center my-6">
               <div className="hidden md:flex items-center justify-center">
                 <p className="text-lg md:text-xl text-center">
-                  Page {paginate.current_page} of {paginate.last_visible_page}
+                  Page {paginate?.current_page} of {paginate?.last_visible_page}
                 </p>
               </div>
-              <RenderIfTrue isTrue={paginate.has_next_page}>
+              <RenderIfTrue isTrue={paginate?.has_next_page}>
                 <Button
                   width="w-full md:w-1/4"
                   bgcolor="bg-pink-700"

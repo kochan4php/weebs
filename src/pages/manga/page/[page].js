@@ -1,62 +1,49 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import action from "../../../action";
 import {
   Button,
-  Dropdown,
   ErrorMessage,
   Loading,
   MainCard,
   TitleSection,
 } from "../../../components";
-import dataDropdownAnime from "../../../helper/_dataDropdownAnime";
-import { selectedAnime, titleAnime } from "../../../store";
 import { For, RenderIfFalse, RenderIfTrue } from "../../../utils";
 
-const { getAnimeWithPagination } = action;
+const { getMangaWithPagination } = action;
 
-const AnimePagination = () => {
+const MangaPagination = () => {
   const router = useRouter();
   const { page } = router.query;
 
-  const [anime, setAnime] = useRecoilState(selectedAnime);
-  const [title, setTitle] = useRecoilState(titleAnime);
-
   const [paginate, setPaginate] = useState({});
-  const [jikanAnime, setJikanAnime] = useState([]);
+  const [jikanManga, setJikanManga] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   const previousPageHandler = () => {
     setIsLoading(true);
-    if (page > 2) router.push(`/anime/page/${parseInt(page) - 1}`);
-    else router.push(`/anime`);
+    if (page > 2) router.push(`/manga/page/${parseInt(page) - 1}`);
+    else router.push(`/manga`);
   };
 
   const nextPageHandler = () => {
     setIsLoading(true);
-    router.push(`/anime/page/${parseInt(page) + 1}`);
+    router.push(`/manga/page/${parseInt(page) + 1}`);
   };
 
-  const getData = async (selectedAnime, page) => {
-    const getData = await getAnimeWithPagination(selectedAnime, page);
-    if (getData) {
-      setJikanAnime(getData.data);
-      setPaginate(getData.pagination);
+  const getData = async (page) => {
+    const res = await getMangaWithPagination(page);
+    if (res) {
+      setJikanManga(res.data);
+      setPaginate(res.pagination);
     } else setIsError(true);
     setIsLoading(false);
   };
 
-  const dropdownHandler = (e) => {
-    router.push("/anime");
-    setTitle(e.target.innerText);
-    setAnime(e.target.dataset.value);
-  };
-
   useEffect(() => {
-    getData(anime, page);
-  }, [anime, title, page]);
+    getData(page);
+  }, [page]);
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 py-4 min-h-screen">
@@ -67,25 +54,21 @@ const AnimePagination = () => {
       </RenderIfTrue>
       <RenderIfFalse isFalse={isError}>
         <div className="container flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0 pt-4 pb-7">
-          <TitleSection>{title}</TitleSection>
-          <Dropdown
-            dataDropdown={dataDropdownAnime}
-            onClick={dropdownHandler}
-          />
+          <TitleSection>Top Manga</TitleSection>
         </div>
         <div className="container px-0 lg:px-4">
           <RenderIfTrue isTrue={isLoading}>
             <Loading />
           </RenderIfTrue>
           <RenderIfFalse isFalse={isLoading}>
-            <RenderIfTrue isTrue={jikanAnime.length > 0}>
+            <RenderIfTrue isTrue={jikanManga.length > 0}>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
                 <For
-                  each={jikanAnime}
+                  each={jikanManga}
                   render={({ mal_id, images, title, score }) => (
                     <MainCard
                       key={mal_id}
-                      path={`/anime/${mal_id}/details`}
+                      path={`/manga/${mal_id}/details`}
                       id={mal_id}
                       image={images?.webp?.large_image_url}
                       title={title}
@@ -97,7 +80,7 @@ const AnimePagination = () => {
                 />
               </div>
             </RenderIfTrue>
-            <RenderIfFalse isFalse={jikanAnime.length > 0}>
+            <RenderIfFalse isFalse={jikanManga.length > 0}>
               <div className="container">
                 <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
               </div>
@@ -135,4 +118,4 @@ const AnimePagination = () => {
   );
 };
 
-export default AnimePagination;
+export default MangaPagination;
