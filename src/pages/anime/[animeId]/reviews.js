@@ -20,7 +20,7 @@ const Reviews = () => {
     setReviews(getReviews);
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1000);
   };
 
   useEffect(() => {

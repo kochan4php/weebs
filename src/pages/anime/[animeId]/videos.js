@@ -20,7 +20,7 @@ const Videos = () => {
     setVideos(getVideos);
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1000);
   };
 
   useEffect(() => {

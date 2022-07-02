@@ -25,7 +25,7 @@ const Characters = () => {
     setDataCharacters(getDataCharacter);
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1000);
   };
 
   useEffect(() => {

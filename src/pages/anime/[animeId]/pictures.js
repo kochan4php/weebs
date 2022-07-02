@@ -25,7 +25,7 @@ const Pictures = () => {
     setPictures(getPictures);
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1000);
   };
 
   useEffect(() => {

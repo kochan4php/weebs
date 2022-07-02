@@ -20,7 +20,7 @@ const Stats = () => {
     setStatistics(getStatistics);
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1000);
   };
 
   useEffect(() => {
