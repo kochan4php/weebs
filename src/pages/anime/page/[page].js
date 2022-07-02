@@ -114,7 +114,11 @@ const AnimePagination = () => {
               </div>
             </div>
             <div className="container flex gap-6 justify-center my-6">
-              <Button bgcolor="bg-pink-700" onClick={previousPageHandler}>
+              <Button
+                width="w-full md:w-1/4"
+                bgcolor="bg-pink-700"
+                onClick={previousPageHandler}
+              >
                 &laquo; Prev
               </Button>
               <div className="hidden md:flex items-center justify-center">
@@ -123,7 +127,11 @@ const AnimePagination = () => {
                 </p>
               </div>
               <RenderIfTrue isTrue={paginate.has_next_page}>
-                <Button bgcolor="bg-pink-700" onClick={nextPageHandler}>
+                <Button
+                  width="w-full md:w-1/4"
+                  bgcolor="bg-pink-700"
+                  onClick={nextPageHandler}
+                >
                   Next &raquo;
                 </Button>
               </RenderIfTrue>

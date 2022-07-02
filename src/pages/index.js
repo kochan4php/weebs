@@ -34,7 +34,7 @@ const Home = ({ data }) => {
               </h1>
             </div>
             <div className="my-6">
-              <p className="text-lg md:text-2xl text-slate-200 font-medium">
+              <p className="text-lg md:text-2xl text-slate-200 font-medium truncate">
                 {getAnimeNow[0]?.synopsis}
               </p>
             </div>
@@ -60,20 +60,18 @@ const Home = ({ data }) => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
               <For
                 each={getAnimeNow}
-                render={({ mal_id, images, title, score }) => {
-                  return (
-                    <MainCard
-                      key={mal_id}
-                      path={`/anime/${mal_id}/details`}
-                      id={mal_id}
-                      image={images?.webp?.large_image_url}
-                      title={title}
-                      score={score}
-                      py="py-5"
-                      fontsize="text-base"
-                    />
-                  );
-                }}
+                render={({ mal_id, images, title, score }) => (
+                  <MainCard
+                    key={mal_id}
+                    path={`/anime/${mal_id}/details`}
+                    id={mal_id}
+                    image={images?.webp?.large_image_url}
+                    title={title}
+                    score={score}
+                    py="py-5"
+                    fontsize="text-base"
+                  />
+                )}
               />
             </div>
           </RenderIfTrue>
