@@ -1,28 +1,35 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import action from "../../action";
+import action from "../../../action";
 import {
   Button,
   ErrorMessage,
   Loading,
   MainCard,
   TitleSection,
-} from "../../components";
-import { For, RenderIfFalse, RenderIfTrue } from "../../utils";
+} from "../../../components";
+import { For, RenderIfFalse, RenderIfTrue } from "../../../utils";
 
 const { getCharactersWithPagination } = action;
 
-const Characters = () => {
+const CharacterPagination = () => {
   const router = useRouter();
+  const { page } = router.query;
 
   const [paginate, setPaginate] = useState({});
   const [jikanCharacters, setJikanCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
+  const previousPageHandler = () => {
+    setIsLoading(true);
+    if (page > 2) router.push(`/characters/page/${parseInt(page) - 1}`);
+    else router.push(`/characters`);
+  };
+
   const nextPageHandler = () => {
     setIsLoading(true);
-    router.push(`/characters/page/2`);
+    router.push(`/characters/page/${parseInt(page) + 1}`);
   };
 
   const getData = async (page) => {
@@ -35,11 +42,11 @@ const Characters = () => {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData(page);
+  }, [page]);
 
   return (
-    <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">
+    <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 py-4 min-h-screen">
       <RenderIfTrue isTrue={isError}>
         <div className="container">
           <ErrorMessage message="Ada sedikit kesalahan pada API nya, coba refresh kembali." />
@@ -47,7 +54,7 @@ const Characters = () => {
       </RenderIfTrue>
       <RenderIfFalse isFalse={isError}>
         <div className="container flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0 pt-4 pb-7">
-          <TitleSection>Top Characters</TitleSection>
+          <TitleSection>Top Manga</TitleSection>
         </div>
         <div className="container px-0 lg:px-4">
           <RenderIfTrue isTrue={isLoading}>
@@ -79,21 +86,30 @@ const Characters = () => {
               </div>
             </RenderIfFalse>
           </RenderIfFalse>
+        </div>
+        <RenderIfFalse isFalse={isError && isLoading}>
           <RenderIfFalse isFalse={isLoading}>
             <div className="md:hidden container my-6 flex justify-center items-center">
               <div>
                 <p className="text-lg md:text-xl text-center">
-                  Page {paginate?.current_page} of {paginate?.last_visible_page}
+                  Page {paginate.current_page} of {paginate.last_visible_page}
                 </p>
               </div>
             </div>
             <div className="container flex gap-6 justify-center my-6">
+              <Button
+                width="w-full md:w-1/4"
+                bgcolor="bg-pink-700"
+                onClick={previousPageHandler}
+              >
+                &laquo; Prev
+              </Button>
               <div className="hidden md:flex items-center justify-center">
                 <p className="text-lg md:text-xl text-center">
-                  Page {paginate?.current_page} of {paginate?.last_visible_page}
+                  Page {paginate.current_page} of {paginate.last_visible_page}
                 </p>
               </div>
-              <RenderIfTrue isTrue={paginate?.has_next_page}>
+              <RenderIfTrue isTrue={paginate.has_next_page}>
                 <Button
                   width="w-full md:w-1/4"
                   bgcolor="bg-pink-700"
@@ -104,10 +120,10 @@ const Characters = () => {
               </RenderIfTrue>
             </div>
           </RenderIfFalse>
-        </div>
+        </RenderIfFalse>
       </RenderIfFalse>
     </section>
   );
 };
 
-export default Characters;
+export default CharacterPagination;
