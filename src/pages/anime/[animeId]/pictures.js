@@ -1,15 +1,10 @@
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import action from "../../../action";
-import LayoutDetailPage from "../../../layout/layoutDetailPage";
+import { Loading, ParallaxCardImage, TitleSection } from "../../../components";
 import routesAnime from "../../../helper/_routesAnime";
-import {
-  Loading,
-  ErrorMessage,
-  TitleSection,
-  ParallaxCardImage,
-} from "../../../components";
-import { RenderIfTrue, RenderIfFalse, For } from "../../../utils";
+import LayoutDetailPage from "../../../layout/layoutDetailPage";
+import { For, RenderIfFalse, RenderIfTrue } from "../../../utils";
 
 const { getPhotoAnime } = action;
 

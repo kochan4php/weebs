@@ -1,15 +1,10 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import action from "../../../action";
-import {
-  ErrorMessage,
-  Loading,
-  ParallaxCardImage,
-  TitleSection,
-} from "../../../components";
+import { Loading, ParallaxCardImage, TitleSection } from "../../../components";
 import routesManga from "../../../helper/_routesManga";
 import LayoutDetailPage from "../../../layout/layoutDetailPage";
-import { RenderIfTrue, RenderIfFalse, For } from "../../../utils";
+import { For, RenderIfFalse, RenderIfTrue } from "../../../utils";
 
 const { getPhotoManga } = action;
 
@@ -19,13 +14,15 @@ const Pictures = () => {
 
   const [pictures, setPictures] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
 
   const getData = async (id) => {
     const getPictures = await getPhotoManga(id);
-    if (getPictures) setPictures(getPictures);
-    else setIsError(true);
-    setIsLoading(false);
+    if (getPictures !== undefined) {
+      setPictures(getPictures);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -42,28 +39,18 @@ const Pictures = () => {
           <TitleSection>Pictures</TitleSection>
         </div>
         <div className="container text-white mt-8 mb-6 xl:px-0">
-          <RenderIfTrue isTrue={isError}>
-            <ErrorMessage message="Kebanyakan request di API nya" />
-          </RenderIfTrue>
-          <RenderIfFalse isFalse={isError}>
-            <RenderIfTrue isTrue={pictures}>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
-                <For
-                  each={pictures}
-                  render={(data, index) => (
-                    <ParallaxCardImage
-                      image={data?.webp?.large_image_url}
-                      alt={`gambar ${index + 1}`}
-                      key={index}
-                    />
-                  )}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+            <For
+              each={pictures}
+              render={(data, index) => (
+                <ParallaxCardImage
+                  image={data?.webp?.large_image_url}
+                  alt={`gambar ${index + 1}`}
+                  key={index}
                 />
-              </div>
-            </RenderIfTrue>
-            <RenderIfFalse isFalse={pictures}>
-              <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
-            </RenderIfFalse>
-          </RenderIfFalse>
+              )}
+            />
+          </div>
         </div>
       </RenderIfFalse>
     </LayoutDetailPage>

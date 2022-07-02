@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import action from "../../../action";
-import { ErrorMessage, Loading, Text, TitleSection } from "../../../components";
+import { Loading, Text, TitleSection } from "../../../components";
 import routesAnime from "../../../helper/_routesAnime";
 import LayoutDetailPage from "../../../layout/layoutDetailPage";
-import { RenderIfTrue, RenderIfFalse, For } from "../../../utils";
+import { For, RenderIfFalse, RenderIfTrue } from "../../../utils";
 
 const { getAnimeStats } = action;
 
