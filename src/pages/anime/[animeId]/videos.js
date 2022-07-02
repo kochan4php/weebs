@@ -18,13 +18,11 @@ const Videos = () => {
   const getData = async (id) => {
     const getVideos = await getAnimeVideos(id);
     setVideos(getVideos);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    return true;
   };
 
   useEffect(() => {
-    getData(animeId);
+    if (getData(animeId)) setIsLoading(false);
   }, [animeId]);
 
   return (

@@ -23,13 +23,11 @@ const Pictures = () => {
   const getData = async (id) => {
     const getPictures = await getPhotoAnime(id);
     setPictures(getPictures);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    return true;
   };
 
   useEffect(() => {
-    getData(animeId);
+    if (getData(animeId)) setIsLoading(false);
   }, [animeId]);
 
   return (

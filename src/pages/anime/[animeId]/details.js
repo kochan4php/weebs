@@ -25,13 +25,11 @@ const DetailAnime = () => {
   const getData = async (id) => {
     const getDetailData = await getDetailAnime(id);
     setDetailData(getDetailData);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    return true;
   };
 
   useEffect(() => {
-    getData(animeId);
+    if (getData(animeId)) setIsLoading(false);
   }, [animeId]);
 
   return (

@@ -23,13 +23,11 @@ const Characters = () => {
   const getData = async (id) => {
     const getDataCharacter = await getAnimeCharacters(id);
     setDataCharacters(getDataCharacter);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    return true;
   };
 
   useEffect(() => {
-    getData(animeId);
+    if (getData(animeId)) setIsLoading(false);
   }, [animeId]);
 
   return (

@@ -5,8 +5,8 @@ const For = ({ each, render }) =>
   Children.toArray(each?.map((item, index) => render(item, index)));
 
 For.propTypes = {
-  each: PropTypes.array.isRequired,
-  render: PropTypes.func.isRequired,
+  each: PropTypes.array,
+  render: PropTypes.func,
 };
 
 export default For;

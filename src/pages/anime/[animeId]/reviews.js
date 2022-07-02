@@ -18,14 +18,11 @@ const Reviews = () => {
   const getData = async (id) => {
     const getReviews = await getAnimeReviews(id);
     setReviews(getReviews);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    return true;
   };
 
   useEffect(() => {
-    getData(animeId);
-    console.log(reviews);
+    if (getData(animeId)) setIsLoading(false);
   }, [animeId]);
 
   return (
