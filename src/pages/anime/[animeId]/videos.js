@@ -14,13 +14,13 @@ const Videos = () => {
 
   const [videos, setVideos] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
 
   const getData = async (id) => {
     const getVideos = await getAnimeVideos(id);
-    if (getVideos) setVideos(getVideos);
-    else setIsError(true);
-    setIsLoading(false);
+    setVideos(getVideos);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   };
 
   useEffect(() => {
@@ -37,24 +37,19 @@ const Videos = () => {
           <TitleSection>Videos</TitleSection>
         </div>
         <div className="container text-white mt-8 mb-6 xl:px-0">
-          <RenderIfTrue isTrue={isError}>
-            <ErrorMessage message="Kebanyakan Request di API nya" />
-          </RenderIfTrue>
-          <RenderIfFalse isFalse={isError}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
-              <For
-                each={videos?.promo}
-                render={(data, index) => (
-                  <iframe
-                    key={index}
-                    src={data?.trailer?.embed_url}
-                    width="100%"
-                    className="selection:bg-violet-500 aspect-video"
-                  ></iframe>
-                )}
-              />
-            </div>
-          </RenderIfFalse>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+            <For
+              each={videos?.promo}
+              render={(data, index) => (
+                <iframe
+                  key={index}
+                  src={data?.trailer?.embed_url}
+                  width="100%"
+                  className="selection:bg-violet-500 aspect-video"
+                ></iframe>
+              )}
+            />
+          </div>
         </div>
       </RenderIfFalse>
     </LayoutDetailPage>

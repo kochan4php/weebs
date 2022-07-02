@@ -14,13 +14,13 @@ const Reviews = () => {
 
   const [reviews, setReviews] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
 
   const getData = async (id) => {
     const getReviews = await getAnimeReviews(id);
-    if (getReviews) setReviews(getReviews);
-    else setIsError(true);
-    setIsLoading(false);
+    setReviews(getReviews);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   };
 
   useEffect(() => {
@@ -38,12 +38,7 @@ const Reviews = () => {
           <TitleSection>Reviews</TitleSection>
         </div>
         <div className="container text-white mt-8 mb-6">
-          <RenderIfTrue isTrue={isError}>
-            <ErrorMessage message="Kebanyakan request di API nya" />
-          </RenderIfTrue>
-          <RenderIfFalse isFalse={isError}>
-            <h1>Berhasil Bang Hehehe</h1>
-          </RenderIfFalse>
+          <h1>Berhasil Bang Hehehe</h1>
         </div>
       </RenderIfFalse>
     </LayoutDetailPage>

@@ -44,10 +44,13 @@ const AnimePagination = () => {
     if (res) {
       setJikanAnime(await res.data);
       setPaginate(await res.pagination);
-    } else setIsError(true);
-    setTimeout(() => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 900);
+    } else {
+      setIsError(true);
       setIsLoading(false);
-    }, 900);
+    }
   };
 
   const dropdownHandler = (e) => {
