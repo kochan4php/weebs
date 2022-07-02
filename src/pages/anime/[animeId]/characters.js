@@ -22,12 +22,16 @@ const Characters = () => {
 
   const getData = async (id) => {
     const getDataCharacter = await getAnimeCharacters(id);
-    setDataCharacters(getDataCharacter);
-    return true;
+    if (getDataCharacter !== undefined) {
+      setDataCharacters(getDataCharacter);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {
-    if (getData(animeId)) setIsLoading(false);
+    getData(animeId);
   }, [animeId]);
 
   return (

@@ -6,7 +6,7 @@ const getAnimeWithPagination = async (selectedAnime, page = undefined) => {
       ? await fetch(`${JIKAN_API}${selectedAnime}`)
       : await fetch(`${JIKAN_API}${selectedAnime}?page=${page}`);
   if (request.ok) return await request.json();
-  else return;
+  else return undefined;
 };
 
 const getCharactersWithPagination = async (page = undefined) => {
@@ -15,7 +15,7 @@ const getCharactersWithPagination = async (page = undefined) => {
       ? await fetch(`${JIKAN_API}/top/characters`)
       : await fetch(`${JIKAN_API}/top/characters?page=${page}`);
   if (request.ok) return await request.json();
-  else return;
+  else return undefined;
 };
 
 const getMangaWithPagination = async (page = undefined) => {
@@ -24,7 +24,7 @@ const getMangaWithPagination = async (page = undefined) => {
       ? await fetch(`${JIKAN_API}/top/manga`)
       : await fetch(`${JIKAN_API}/top/manga?page=${page}`);
   if (request.ok) return await request.json();
-  else return;
+  else return undefined;
 };
 
 const getCharacterSearch = async (keyword) => {
@@ -34,7 +34,7 @@ const getCharacterSearch = async (keyword) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -45,7 +45,7 @@ const getAnimeSearch = async (keyword) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -56,7 +56,7 @@ const getMangaSearch = async (keyword) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -67,7 +67,7 @@ const getAnimeVideos = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -78,7 +78,7 @@ const getAnimeCharacters = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -89,7 +89,7 @@ const getMangaCharacters = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -100,7 +100,7 @@ const getAnimeStats = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -111,7 +111,7 @@ const getMangaStats = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -122,7 +122,7 @@ const getAnimeReviews = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -133,7 +133,7 @@ const getMangaReviews = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -144,7 +144,7 @@ const getDetailAnime = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -155,7 +155,7 @@ const getDetailManga = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -166,7 +166,7 @@ const getDetailCharacter = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -177,7 +177,7 @@ const getPhotoAnime = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -188,7 +188,7 @@ const getPhotoManga = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 
@@ -199,7 +199,7 @@ const getPhotoCharacter = async (id) => {
     const response = await request.json();
     return response.data;
   } else {
-    return;
+    return undefined;
   }
 };
 

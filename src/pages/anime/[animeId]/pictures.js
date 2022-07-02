@@ -22,8 +22,12 @@ const Pictures = () => {
 
   const getData = async (id) => {
     const getPictures = await getPhotoAnime(id);
-    setPictures(getPictures);
-    return true;
+    if (getPictures !== undefined) {
+      setPictures(getPictures);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {

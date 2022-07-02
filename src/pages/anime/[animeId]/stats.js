@@ -17,8 +17,12 @@ const Stats = () => {
 
   const getData = async (id) => {
     const getStatistics = await getAnimeStats(id);
-    setStatistics(getStatistics);
-    return true;
+    if (getStatistics !== undefined) {
+      setStatistics(getStatistics);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {

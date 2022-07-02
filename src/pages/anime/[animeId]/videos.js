@@ -17,8 +17,12 @@ const Videos = () => {
 
   const getData = async (id) => {
     const getVideos = await getAnimeVideos(id);
-    setVideos(getVideos);
-    return true;
+    if (getVideos !== undefined) {
+      setVideos(getVideos);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {

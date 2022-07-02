@@ -24,12 +24,16 @@ const DetailAnime = () => {
 
   const getData = async (id) => {
     const getDetailData = await getDetailAnime(id);
-    setDetailData(getDetailData);
-    return true;
+    if (getDetailData !== undefined) {
+      setDetailData(getDetailData);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {
-    if (getData(animeId)) setIsLoading(false);
+    getData(animeId);
   }, [animeId]);
 
   return (
