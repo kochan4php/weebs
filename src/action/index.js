@@ -27,15 +27,31 @@ const getMangaWithPagination = async (page = undefined) => {
   else return undefined;
 };
 
+const getAnimeRecommendations = async (id) => {
+  const request = await fetch(`${JIKAN_API}/anime/${id}/recommendations`);
+
+  if (request.ok) {
+    const response = await request.json();
+    return response.data;
+  } else return undefined;
+};
+
+const getMangaRecommendations = async (id) => {
+  const request = await fetch(`${JIKAN_API}/manga/${id}/recommendations`);
+
+  if (request.ok) {
+    const response = await request.json();
+    return response.data;
+  } else return undefined;
+};
+
 const getCharacterSearch = async (keyword) => {
   const request = await fetch(`${JIKAN_API}/characters?q=${keyword}`);
 
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getAnimeSearch = async (keyword) => {
@@ -44,9 +60,7 @@ const getAnimeSearch = async (keyword) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getMangaSearch = async (keyword) => {
@@ -55,9 +69,7 @@ const getMangaSearch = async (keyword) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getAnimeVideos = async (id) => {
@@ -66,9 +78,7 @@ const getAnimeVideos = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getAnimeCharacters = async (id) => {
@@ -77,9 +87,7 @@ const getAnimeCharacters = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getMangaCharacters = async (id) => {
@@ -88,9 +96,7 @@ const getMangaCharacters = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getAnimeStats = async (id) => {
@@ -99,9 +105,7 @@ const getAnimeStats = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getMangaStats = async (id) => {
@@ -110,9 +114,7 @@ const getMangaStats = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getAnimeReviews = async (id) => {
@@ -121,9 +123,7 @@ const getAnimeReviews = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getMangaReviews = async (id) => {
@@ -132,9 +132,7 @@ const getMangaReviews = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getDetailAnime = async (id) => {
@@ -143,9 +141,7 @@ const getDetailAnime = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getDetailManga = async (id) => {
@@ -154,9 +150,7 @@ const getDetailManga = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getDetailCharacter = async (id) => {
@@ -165,9 +159,7 @@ const getDetailCharacter = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getPhotoAnime = async (id) => {
@@ -176,9 +168,7 @@ const getPhotoAnime = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getPhotoManga = async (id) => {
@@ -187,9 +177,7 @@ const getPhotoManga = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 const getPhotoCharacter = async (id) => {
@@ -198,15 +186,15 @@ const getPhotoCharacter = async (id) => {
   if (request.ok) {
     const response = await request.json();
     return response.data;
-  } else {
-    return undefined;
-  }
+  } else return undefined;
 };
 
 export default {
   getAnimeWithPagination,
   getCharactersWithPagination,
   getMangaWithPagination,
+  getAnimeRecommendations,
+  getMangaRecommendations,
   getAnimeSearch,
   getCharacterSearch,
   getMangaSearch,
