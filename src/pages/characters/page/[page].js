@@ -34,13 +34,13 @@ const CharacterPagination = () => {
 
   const getData = async (page = undefined) => {
     const res = await getCharactersWithPagination(page);
-    if (res) {
+    if (res !== undefined) {
       setJikanCharacters(await res.data);
       setPaginate(await res.pagination);
-    } else setIsError(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 900);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -49,48 +49,32 @@ const CharacterPagination = () => {
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 py-4 min-h-screen">
-      <RenderIfTrue isTrue={isError}>
-        <div className="container">
-          <ErrorMessage message="Ada sedikit kesalahan pada API nya, coba refresh kembali." />
-        </div>
-      </RenderIfTrue>
-      <RenderIfFalse isFalse={isError}>
-        <div className="container flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0 pt-4 pb-7">
-          <TitleSection>Top Characters</TitleSection>
-        </div>
-        <div className="container px-0 lg:px-4">
-          <RenderIfTrue isTrue={isLoading}>
-            <Loading />
-          </RenderIfTrue>
-          <RenderIfFalse isFalse={isLoading}>
-            <RenderIfTrue isTrue={jikanCharacters.length > 0}>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
-                <For
-                  each={jikanCharacters}
-                  render={({ mal_id, images, name }) => (
-                    <MainCard
-                      key={mal_id}
-                      path={`/characters/details/${mal_id}`}
-                      id={mal_id}
-                      image={images?.webp?.image_url}
-                      title={name}
-                      py="py-5"
-                      fontsize="text-base"
-                      centerText
-                    />
-                  )}
-                />
-              </div>
-            </RenderIfTrue>
-            <RenderIfFalse isFalse={jikanCharacters.length > 0}>
-              <div className="container">
-                <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
-              </div>
-            </RenderIfFalse>
-          </RenderIfFalse>
-        </div>
-        <RenderIfFalse isFalse={isError && isLoading}>
-          <RenderIfFalse isFalse={isLoading}>
+      <div className="container flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0 pt-4 pb-7">
+        <TitleSection>Top Characters</TitleSection>
+      </div>
+      <div className="container px-0 lg:px-4">
+        <RenderIfTrue isTrue={isLoading}>
+          <Loading />
+        </RenderIfTrue>
+        <RenderIfFalse isFalse={isLoading}>
+          <RenderIfTrue isTrue={jikanCharacters.length > 0}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-6">
+              <For
+                each={jikanCharacters}
+                render={({ mal_id, images, name }) => (
+                  <MainCard
+                    key={mal_id}
+                    path={`/characters/details/${mal_id}`}
+                    id={mal_id}
+                    image={images?.webp?.image_url}
+                    title={name}
+                    py="py-5"
+                    fontsize="text-base"
+                    centerText
+                  />
+                )}
+              />
+            </div>
             <div className="md:hidden container my-6 flex justify-center items-center">
               <div>
                 <p className="text-lg md:text-xl text-center">
@@ -121,9 +105,14 @@ const CharacterPagination = () => {
                 </Button>
               </RenderIfTrue>
             </div>
+          </RenderIfTrue>
+          <RenderIfFalse isFalse={jikanCharacters.length > 0}>
+            <div className="container">
+              <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
+            </div>
           </RenderIfFalse>
         </RenderIfFalse>
-      </RenderIfFalse>
+      </div>
     </section>
   );
 };

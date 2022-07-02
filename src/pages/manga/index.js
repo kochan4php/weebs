@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import action from "../../action";
 import {
   Button,
@@ -18,7 +18,6 @@ const Manga = () => {
   const [paginate, setPaginate] = useState({});
   const [jikanManga, setJikanManga] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
 
   const nextPageHandler = () => {
     setIsLoading(true);
@@ -27,11 +26,13 @@ const Manga = () => {
 
   const getData = async (page) => {
     const res = await getMangaWithPagination(page);
-    if (res) {
-      setJikanManga(res.data);
-      setPaginate(res.pagination);
-    } else setIsError(true);
-    setIsLoading(false);
+    if (res !== undefined) {
+      setJikanManga(await res.data);
+      setPaginate(await res.pagination);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -66,39 +67,37 @@ const Manga = () => {
                 )}
               />
             </div>
+            <div className="md:hidden container my-6 flex justify-center items-center">
+              <div>
+                <p className="text-lg md:text-xl text-center">
+                  Page {paginate?.current_page} of {paginate?.last_visible_page}
+                </p>
+              </div>
+            </div>
+            <div className="container flex gap-6 justify-center my-6">
+              <div className="hidden md:flex items-center justify-center">
+                <p className="text-lg md:text-xl text-center">
+                  Page {paginate?.current_page} of {paginate?.last_visible_page}
+                </p>
+              </div>
+              <RenderIfTrue isTrue={paginate?.has_next_page}>
+                <Button
+                  width="w-full md:w-1/4"
+                  bgcolor="bg-pink-700"
+                  onClick={nextPageHandler}
+                >
+                  Next &raquo;
+                </Button>
+              </RenderIfTrue>
+            </div>
           </RenderIfTrue>
           <RenderIfFalse isFalse={jikanManga.length > 0}>
-            <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
+            <div className="container">
+              <ErrorMessage message="Gagal mengambil data dari API, coba refresh ulang browsernya" />
+            </div>
           </RenderIfFalse>
         </RenderIfFalse>
       </div>
-      <RenderIfFalse isFalse={isError}>
-        <RenderIfFalse isFalse={isLoading}>
-          <div className="md:hidden container my-6 flex justify-center items-center">
-            <div>
-              <p className="text-lg md:text-xl text-center">
-                Page {paginate?.current_page} of {paginate?.last_visible_page}
-              </p>
-            </div>
-          </div>
-          <div className="container flex gap-6 justify-center my-6">
-            <div className="hidden md:flex items-center justify-center">
-              <p className="text-lg md:text-xl text-center">
-                Page {paginate?.current_page} of {paginate?.last_visible_page}
-              </p>
-            </div>
-            <RenderIfTrue isTrue={paginate?.has_next_page}>
-              <Button
-                width="w-full md:w-1/4"
-                bgcolor="bg-pink-700"
-                onClick={nextPageHandler}
-              >
-                Next &raquo;
-              </Button>
-            </RenderIfTrue>
-          </div>
-        </RenderIfFalse>
-      </RenderIfFalse>
     </section>
   );
 };

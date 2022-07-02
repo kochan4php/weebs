@@ -44,8 +44,8 @@ const Stats = () => {
               <h3 className="text-2xl mb-4 md:mb-3 selection:bg-violet-500 selection:text-violet-900 pb-3 border-b border-slate-500">
                 Summary Stats
               </h3>
-              <RenderIfTrue isTrue={statistics?.watching}>
-                <Text category="Watching">{statistics?.watching}</Text>
+              <RenderIfTrue isTrue={statistics?.reading}>
+                <Text category="Reading">{statistics?.reading}</Text>
               </RenderIfTrue>
               <RenderIfTrue isTrue={statistics?.completed}>
                 <Text category="Completed">{statistics?.completed}</Text>
@@ -56,10 +56,8 @@ const Stats = () => {
               <RenderIfTrue isTrue={statistics?.dropped}>
                 <Text category="Dropped">{statistics?.dropped}</Text>
               </RenderIfTrue>
-              <RenderIfTrue isTrue={statistics?.plan_to_watch}>
-                <Text category="Plan to Watch">
-                  {statistics?.plan_to_watch}
-                </Text>
+              <RenderIfTrue isTrue={statistics?.plan_to_read}>
+                <Text category="Plan to Read">{statistics?.plan_to_read}</Text>
               </RenderIfTrue>
               <RenderIfTrue isTrue={statistics?.total}>
                 <Text category="Total">{statistics?.total}</Text>
