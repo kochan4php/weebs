@@ -54,7 +54,7 @@ const CharacterPagination = () => {
       </RenderIfTrue>
       <RenderIfFalse isFalse={isError}>
         <div className="container flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-0 pt-4 pb-7">
-          <TitleSection>Top Manga</TitleSection>
+          <TitleSection>Top Characters</TitleSection>
         </div>
         <div className="container px-0 lg:px-4">
           <RenderIfTrue isTrue={isLoading}>
