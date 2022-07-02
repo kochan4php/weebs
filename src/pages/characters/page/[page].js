@@ -32,13 +32,15 @@ const CharacterPagination = () => {
     router.push(`/characters/page/${parseInt(page) + 1}`);
   };
 
-  const getData = async (page) => {
+  const getData = async (page = undefined) => {
     const res = await getCharactersWithPagination(page);
     if (res) {
-      setJikanCharacters(res.data);
-      setPaginate(res.pagination);
+      setJikanCharacters(await res.data);
+      setPaginate(await res.pagination);
     } else setIsError(true);
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 900);
   };
 
   useEffect(() => {

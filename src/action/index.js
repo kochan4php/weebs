@@ -9,14 +9,20 @@ const getAnimeWithPagination = async (selectedAnime, page = undefined) => {
   else return;
 };
 
-const getCharactersWithPagination = async (page) => {
-  const request = await fetch(`${JIKAN_API}/top/characters?page=${page || 1}`);
+const getCharactersWithPagination = async (page = undefined) => {
+  const request =
+    page === undefined
+      ? await fetch(`${JIKAN_API}/top/characters`)
+      : await fetch(`${JIKAN_API}/top/characters?page=${page}`);
   if (request.ok) return await request.json();
   else return;
 };
 
-const getMangaWithPagination = async (page) => {
-  const request = await fetch(`${JIKAN_API}/top/manga?page=${page || 1}`);
+const getMangaWithPagination = async (page = undefined) => {
+  const request =
+    page === undefined
+      ? await fetch(`${JIKAN_API}/top/manga`)
+      : await fetch(`${JIKAN_API}/top/manga?page=${page}`);
   if (request.ok) return await request.json();
   else return;
 };

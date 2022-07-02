@@ -40,12 +40,14 @@ const AnimePagination = () => {
   };
 
   const getData = async (selectedAnime, page) => {
-    const getData = await getAnimeWithPagination(selectedAnime, page);
-    if (getData) {
-      setJikanAnime(getData.data);
-      setPaginate(getData.pagination);
+    const res = await getAnimeWithPagination(selectedAnime, page);
+    if (res) {
+      setJikanAnime(await res.data);
+      setPaginate(await res.pagination);
     } else setIsError(true);
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 900);
   };
 
   const dropdownHandler = (e) => {

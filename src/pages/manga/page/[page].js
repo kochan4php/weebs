@@ -35,10 +35,12 @@ const MangaPagination = () => {
   const getData = async (page) => {
     const res = await getMangaWithPagination(page);
     if (res) {
-      setJikanManga(res.data);
-      setPaginate(res.pagination);
+      setJikanManga(await res.data);
+      setPaginate(await res.pagination);
     } else setIsError(true);
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 900);
   };
 
   useEffect(() => {
