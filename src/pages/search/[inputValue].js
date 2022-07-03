@@ -23,7 +23,7 @@ const SearchAnimeOrManga = () => {
   const getData = async (keyword) => {
     const responseAnime = await getAnimeSearch(keyword);
     const responseManga = await getMangaSearch(keyword);
-    if (responseAnime !== undefined && responseManga !== undefined) {
+    if (responseAnime !== undefined || responseManga !== undefined) {
       setResultAnime(responseAnime);
       setResultManga(responseManga);
       setTimeout(() => {
