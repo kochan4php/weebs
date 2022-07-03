@@ -23,7 +23,7 @@ const SearchAnimeOrManga = () => {
   const getData = async (keyword) => {
     const responseAnime = await getAnimeSearch(keyword);
     const responseManga = await getMangaSearch(keyword);
-    if (responseAnime !== undefined || responseManga !== undefined) {
+    if (responseAnime !== undefined && responseManga !== undefined) {
       setResultAnime(responseAnime);
       setResultManga(responseManga);
       setTimeout(() => {
@@ -109,11 +109,15 @@ const SearchAnimeOrManga = () => {
             </div>
           </RenderIfTrue>
         </div>
-        <RenderIfFalse isFalse={resultAnime.length > 0}>
-          <AlertWarning message="Anime yang kamu cari tidak ada, coba masukkan keyword yang benar." />
+        <RenderIfFalse isFalse={resultAnime.length !== 0}>
+          <AlertWarning
+            message={`Anime yang kamu cari tidak ada. Mungkin anime yang berjudul ${inputValue} memang tidak ada atau kamu memasukkan keyword yang salah.`}
+          />
         </RenderIfFalse>
-        <RenderIfFalse isFalse={resultManga.length > 0}>
-          <AlertWarning message="Manga yang kamu cari tidak ada, coba masukkan keyword yang benar." />
+        <RenderIfFalse isFalse={resultManga.length !== 0}>
+          <AlertWarning
+            message={`Manga yang kamu cari tidak ada. Mungkin manga yang berjudul ${inputValue} memang tidak ada atau kamu memasukkan keyword yang salah.`}
+          />
         </RenderIfFalse>
       </RenderIfFalse>
     </section>
