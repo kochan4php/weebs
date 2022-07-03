@@ -64,6 +64,9 @@ const DetailAnime = () => {
                 {detailData?.title}
               </h1>
               <div className="text-lg selection:bg-pink-500 selection:text-pink-900">
+                <RenderIfTrue isTrue={detailData?.title_japanese}>
+                  <Text category="Japanese">{detailData?.title_japanese}</Text>
+                </RenderIfTrue>
                 <RenderIfTrue isTrue={detailData?.aired?.string}>
                   <Text category="Release">{detailData?.aired?.string}</Text>
                 </RenderIfTrue>
