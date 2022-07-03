@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import action from "../../action";
 import {
-  ErrorMessage,
+  AlertWarning,
   Loading,
   MainCard,
   TitleSection,
@@ -35,14 +35,14 @@ const SearchCharacter = () => {
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">
-      <div className="container flex items-center pt-4 pb-7">
+      <div className="container flex items-center pt-4 pb-6">
         <TitleSection centerText>Result of {inputValue}</TitleSection>
       </div>
-      <div className="container px-0 lg:px-4">
-        <RenderIfTrue isTrue={isLoading}>
-          <Loading />
-        </RenderIfTrue>
-        <RenderIfFalse isFalse={isLoading}>
+      <RenderIfTrue isTrue={isLoading}>
+        <Loading />
+      </RenderIfTrue>
+      <RenderIfFalse isFalse={isLoading}>
+        <div className="container px-0 lg:px-4">
           <RenderIfTrue isTrue={resultCharacter.length > 0}>
             <div className="sm:flex items-center mb-4 py-4 hidden">
               <div className="flex-grow h-px bg-gray-400"></div>
@@ -74,13 +74,11 @@ const SearchCharacter = () => {
               />
             </div>
           </RenderIfTrue>
-          <RenderIfFalse isFalse={resultCharacter.length > 0}>
-            <div className="container md:px-0">
-              <ErrorMessage message="Character anime yang kamu cari tidak ada, coba masukkan keyword yang benar." />
-            </div>
-          </RenderIfFalse>
+        </div>
+        <RenderIfFalse isFalse={resultCharacter.length > 0}>
+          <AlertWarning message="Character anime yang kamu cari tidak ada, coba masukkan keyword yang benar." />
         </RenderIfFalse>
-      </div>
+      </RenderIfFalse>
     </section>
   );
 };
