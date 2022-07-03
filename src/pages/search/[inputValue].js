@@ -14,6 +14,7 @@ const { getAnimeSearch, getMangaSearch } = action;
 const SearchAnimeOrManga = () => {
   const router = useRouter();
   const { inputValue } = router.query;
+  const value = inputValue?.split(" ")?.join("%20");
 
   const [resultAnime, setResultAnime] = useState([]);
   const [resultManga, setResultManga] = useState([]);
@@ -32,8 +33,8 @@ const SearchAnimeOrManga = () => {
   };
 
   useEffect(() => {
-    getData(inputValue);
-  }, [inputValue]);
+    getData(value);
+  }, [inputValue, value]);
 
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">
