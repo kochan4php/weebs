@@ -5,7 +5,7 @@ import { NavbarDetail } from "../../components";
 const LayoutDetailPage = ({ children, routes }) => (
   <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 text-white py-3 min-h-screen">
     <NavbarDetail routes={routes} />
-    <main>{children}</main>
+    <div>{children}</div>
   </section>
 );
 

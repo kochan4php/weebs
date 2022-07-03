@@ -28,7 +28,7 @@ const SearchAnimeOrManga = () => {
       setResultManga(responseManga);
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 1500);
     }
   };
 
@@ -110,7 +110,7 @@ const SearchAnimeOrManga = () => {
           </RenderIfTrue>
         </div>
         <RenderIfFalse
-          isFalse={resultAnime.length > 0 && resultManga.length > 0}
+          isFalse={resultAnime.length > 0 || resultManga.length > 0}
         >
           <AlertWarning message="Anime atau manga yang kamu cari tidak ada, coba masukkan keyword yang benar." />
         </RenderIfFalse>
