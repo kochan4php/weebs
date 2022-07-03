@@ -109,10 +109,11 @@ const SearchAnimeOrManga = () => {
             </div>
           </RenderIfTrue>
         </div>
-        <RenderIfFalse
-          isFalse={resultAnime.length > 0 || resultManga.length > 0}
-        >
-          <AlertWarning message="Anime atau manga yang kamu cari tidak ada, coba masukkan keyword yang benar." />
+        <RenderIfFalse isFalse={resultAnime.length > 0}>
+          <AlertWarning message="Anime yang kamu cari tidak ada, coba masukkan keyword yang benar." />
+        </RenderIfFalse>
+        <RenderIfFalse isFalse={resultManga.length > 0}>
+          <AlertWarning message="Manga yang kamu cari tidak ada, coba masukkan keyword yang benar." />
         </RenderIfFalse>
       </RenderIfFalse>
     </section>
