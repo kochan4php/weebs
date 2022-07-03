@@ -14,7 +14,6 @@ const { getAnimeSearch, getMangaSearch } = action;
 const SearchAnimeOrManga = () => {
   const router = useRouter();
   const { inputValue } = router.query;
-  const value = inputValue?.split(" ")?.join("%20");
 
   const [resultAnime, setResultAnime] = useState([]);
   const [resultManga, setResultManga] = useState([]);
@@ -29,11 +28,11 @@ const SearchAnimeOrManga = () => {
       setTimeout(() => {
         setIsLoading(false);
       }, 1500);
-    }
+    } else setIsLoading(false);
   };
 
   useEffect(() => {
-    getData(value);
+    getData(inputValue);
   }, [inputValue]);
 
   return (
@@ -109,12 +108,12 @@ const SearchAnimeOrManga = () => {
             </div>
           </RenderIfTrue>
         </div>
-        <RenderIfFalse isFalse={resultAnime.length !== 0}>
+        <RenderIfFalse isFalse={resultAnime.length > 0}>
           <AlertWarning
             message={`Anime yang kamu cari tidak ada. Mungkin anime yang berjudul ${inputValue} memang tidak ada atau kamu memasukkan keyword yang salah.`}
           />
         </RenderIfFalse>
-        <RenderIfFalse isFalse={resultManga.length !== 0}>
+        <RenderIfFalse isFalse={resultManga.length > 0}>
           <AlertWarning
             message={`Manga yang kamu cari tidak ada. Mungkin manga yang berjudul ${inputValue} memang tidak ada atau kamu memasukkan keyword yang salah.`}
           />
