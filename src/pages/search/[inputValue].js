@@ -28,7 +28,7 @@ const SearchAnimeOrManga = () => {
       setResultManga(responseManga);
       setTimeout(() => {
         setIsLoading(false);
-      }, 1500);
+      }, 2000);
     } else setIsLoading(false);
   };
 
