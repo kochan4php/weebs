@@ -5,7 +5,15 @@ module.exports = {
       padding: 16,
       center: true,
     },
-    extend: {},
+    extend: {
+      colors: {
+        danger: "#dc2626",
+        success: "#16a34a",
+        warning: "#eab308",
+        primary: "#2563eb",
+        dark: "#171717",
+      },
+    },
   },
   plugins: [require("tailwindcss"), require("autoprefixer")],
 };

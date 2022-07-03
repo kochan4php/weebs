@@ -1,4 +1,5 @@
 import About from "./About";
+import { AlertDanger, AlertPrimary, AlertSuccess, AlertWarning } from "./Alert";
 import Button from "./Button";
 import Card from "./Card";
 import CardImage from "./CardImage";
@@ -21,6 +22,10 @@ import TitleSection from "./TitleSection";
 
 export {
   About,
+  AlertDanger,
+  AlertPrimary,
+  AlertSuccess,
+  AlertWarning,
   Button,
   Card,
   CardImage,
