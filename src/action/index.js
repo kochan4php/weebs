@@ -3,8 +3,8 @@ import JIKAN_API from "../config/Jikan";
 const getAnimeWithPagination = async (selectedAnime, page = undefined) => {
   const request =
     page === undefined
-      ? await fetch(`${JIKAN_API}${selectedAnime}`)
-      : await fetch(`${JIKAN_API}${selectedAnime}?page=${page}`);
+      ? await fetch(`${JIKAN_API}${selectedAnime}?limit=10`)
+      : await fetch(`${JIKAN_API}${selectedAnime}?page=${page}&limit=10`);
   if (request.ok) return await request.json();
   else return undefined;
 };
@@ -12,8 +12,8 @@ const getAnimeWithPagination = async (selectedAnime, page = undefined) => {
 const getCharactersWithPagination = async (page = undefined) => {
   const request =
     page === undefined
-      ? await fetch(`${JIKAN_API}/top/characters`)
-      : await fetch(`${JIKAN_API}/top/characters?page=${page}`);
+      ? await fetch(`${JIKAN_API}/top/characters?limit=10`)
+      : await fetch(`${JIKAN_API}/top/characters?page=${page}&?limit=10`);
   if (request.ok) return await request.json();
   else return undefined;
 };
@@ -21,8 +21,8 @@ const getCharactersWithPagination = async (page = undefined) => {
 const getMangaWithPagination = async (page = undefined) => {
   const request =
     page === undefined
-      ? await fetch(`${JIKAN_API}/top/manga`)
-      : await fetch(`${JIKAN_API}/top/manga?page=${page}`);
+      ? await fetch(`${JIKAN_API}/top/manga?limit=10`)
+      : await fetch(`${JIKAN_API}/top/manga?page=${page}&?limit=10`);
   if (request.ok) return await request.json();
   else return undefined;
 };
@@ -46,7 +46,7 @@ const getMangaRecommendations = async (id) => {
 };
 
 const getCharacterSearch = async (keyword) => {
-  const request = await fetch(`${JIKAN_API}/characters?q=${keyword}`);
+  const request = await fetch(`${JIKAN_API}/characters?q=${keyword}&limit=10`);
 
   if (request.ok) {
     const response = await request.json();
@@ -55,7 +55,7 @@ const getCharacterSearch = async (keyword) => {
 };
 
 const getAnimeSearch = async (keyword) => {
-  const request = await fetch(`${JIKAN_API}/anime?q=${keyword}`);
+  const request = await fetch(`${JIKAN_API}/anime?q=${keyword}&sfw=false`);
 
   if (request.ok) {
     const response = await request.json();
@@ -64,7 +64,7 @@ const getAnimeSearch = async (keyword) => {
 };
 
 const getMangaSearch = async (keyword) => {
-  const request = await fetch(`${JIKAN_API}/manga?q=${keyword}`);
+  const request = await fetch(`${JIKAN_API}/manga?q=${keyword}&sfw=false`);
 
   if (request.ok) {
     const response = await request.json();
