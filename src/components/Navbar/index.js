@@ -88,7 +88,7 @@ const Navbar = () => {
       <div className="container flex justify-between items-center py-1 relative">
         <div>
           <h1 className="text-center bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent font-semibold text-3xl">
-            <Link href="/">Weebs</Link>
+            <Link href="/">Koweebs</Link>
           </h1>
         </div>
         <ul className="absolute text-lg font-semibold right-0 flex-col bg-slate-800 backdrop-blur-lg h-[70vh] md:h-[40vh] xl:h-[55vh] top-[75px] bottom-0 justify-evenly items-center -z-[199] w-[65%] md:w-[40%] lg:w-[30%] xl:w-[20%] transition-all duration-200 rounded-md border border-slate-600 navbar-nav px-8 md:px-0 hidden">

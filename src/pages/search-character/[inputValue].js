@@ -21,12 +21,10 @@ const SearchCharacter = () => {
 
   const getData = async (keyword) => {
     const responseCharacter = await getCharacterSearch(keyword);
-    if (responseCharacter !== undefined) {
-      setResultCharacter(responseCharacter);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    }
+    if (responseCharacter !== undefined) setResultCharacter(responseCharacter);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
 
   useEffect(() => {
