@@ -25,9 +25,11 @@ const SearchAnimeOrManga = () => {
     const responseManga = await getMangaSearch(keyword);
     if (responseAnime !== undefined) setResultAnime(responseAnime);
     if (responseManga !== undefined) setResultManga(responseManga);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    if (responseAnime !== undefined || responseManga !== undefined) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    }
   };
 
   useEffect(() => {
