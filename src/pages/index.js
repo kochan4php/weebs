@@ -4,7 +4,7 @@ import JIKAN_URL from "../config/Jikan";
 import { For, RenderIfFalse, RenderIfTrue } from "../utils";
 
 export const getServerSideProps = async () => {
-  const request = await fetch(`${JIKAN_URL}/seasons/now`);
+  const request = await fetch(`${JIKAN_URL}/seasons/now?limit=20`);
   const response = await request.json();
 
   return {
