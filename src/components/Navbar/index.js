@@ -6,7 +6,6 @@ import { For } from "../../utils";
 
 const routes = [
   createRoute("/", "Home"),
-  createRoute("/about", "About"),
   createRoute("/anime", "Anime"),
   createRoute("/manga", "Manga"),
   createRoute("/characters", "Characters"),
@@ -22,14 +21,14 @@ const Navbar = () => {
     e.preventDefault();
     if (
       currentPath === "anime" ||
-      currentPath === "about" ||
-      currentPath === "manga" ||
-      currentPath === "search" ||
+      currentPath === "search-anime" ||
       currentPath === ""
     )
-      router.push(`/search/${inputValue.split(" ").join("%20")}`);
+      router.push(`/search-anime/${inputValue.split(" ").join("%20")}`);
     else if (currentPath === "characters" || currentPath === "search-character")
       router.push(`/search-character/${inputValue.split(" ").join("%20")}`);
+    else if (currentPath === "manga" || currentPath === "search-manga")
+      router.push(`/search-manga/${inputValue.split(" ").join("%20")}`);
     setInputValue("");
   };
 
@@ -115,15 +114,26 @@ const Navbar = () => {
               <input
                 type="search"
                 name="search"
-                className="search-input truncate outline-none px-5 py-1.5 rounded-full bg-slate-700 w-full text-base ring-4 focus:ring-sky-500 transition-all"
+                className={`search-input truncate outline-none px-5 py-1.5 rounded-full bg-slate-700 w-full text-base ring-4 focus:ring-sky-500 transition-all ${
+                  currentPath === "anime" ||
+                  currentPath === "search-anime" ||
+                  currentPath === ""
+                    ? ""
+                    : currentPath === "manga" || currentPath === "search-manga"
+                    ? ""
+                    : currentPath === "characters" ||
+                      currentPath === "search-character"
+                    ? ""
+                    : "hidden"
+                }`}
                 placeholder={
                   currentPath === "anime" ||
-                  currentPath === "about" ||
-                  currentPath === "manga" ||
                   currentPath === "search" ||
                   currentPath === ""
-                    ? "Search Anime or Manga"
-                    : "Search Characters"
+                    ? "Search Anime"
+                    : currentPath === "manga" || currentPath === "search-manga"
+                    ? "Search Manga"
+                    : "Search Character"
                 }
                 autoComplete="off"
                 value={inputValue}
@@ -137,15 +147,26 @@ const Navbar = () => {
             <input
               type="search"
               name="search"
-              className="search-input truncate outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all"
+              className={`search-input truncate outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all  ${
+                currentPath === "anime" ||
+                currentPath === "search-anime" ||
+                currentPath === ""
+                  ? ""
+                  : currentPath === "manga" || currentPath === "search-manga"
+                  ? ""
+                  : currentPath === "characters" ||
+                    currentPath === "search-character"
+                  ? ""
+                  : "hidden"
+              }`}
               placeholder={
                 currentPath === "anime" ||
-                currentPath === "about" ||
-                currentPath === "manga" ||
                 currentPath === "search" ||
                 currentPath === ""
-                  ? "Search Anime or Manga"
-                  : "Search Characters"
+                  ? "Search Anime"
+                  : currentPath === "manga" || currentPath === "search-manga"
+                  ? "Search Manga"
+                  : "Search Character"
               }
               autoComplete="off"
               value={inputValue}
