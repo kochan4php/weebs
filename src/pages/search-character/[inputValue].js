@@ -36,7 +36,7 @@ const SearchCharacter = () => {
   return (
     <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 pt-4 pb-8 min-h-screen">
       <div className="container flex items-center pt-4 pb-6">
-        <TitleSection centerText>Result of {inputValue}</TitleSection>
+        <TitleSection>Result of {inputValue}</TitleSection>
       </div>
       <RenderIfTrue isTrue={isLoading}>
         <Loading />
