@@ -128,7 +128,7 @@ const Navbar = () => {
                 }`}
                 placeholder={
                   currentPath === "anime" ||
-                  currentPath === "search" ||
+                  currentPath === "search-anime" ||
                   currentPath === ""
                     ? "Search Anime"
                     : currentPath === "manga" || currentPath === "search-manga"
@@ -161,7 +161,7 @@ const Navbar = () => {
               }`}
               placeholder={
                 currentPath === "anime" ||
-                currentPath === "search" ||
+                currentPath === "search-anime" ||
                 currentPath === ""
                   ? "Search Anime"
                   : currentPath === "manga" || currentPath === "search-manga"
