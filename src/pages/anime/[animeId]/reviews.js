@@ -26,7 +26,7 @@ const Reviews = () => {
   };
 
   useEffect(() => {
-    if (getData(animeId)) setIsLoading(false);
+    getData(animeId);
   }, [animeId]);
 
   return (

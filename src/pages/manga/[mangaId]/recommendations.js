@@ -68,7 +68,7 @@ const MangaRecommendations = () => {
           </div>
         </RenderIfTrue>
         <RenderIfFalse isFalse={mangaRecommendations.length > 0}>
-          <AlertWarning message="Belum ada rekomendasi dari anime ini." />
+          <AlertWarning message="Belum ada rekomendasi dari manga ini." />
         </RenderIfFalse>
       </RenderIfFalse>
     </LayoutDetailPage>
