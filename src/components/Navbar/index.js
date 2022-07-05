@@ -146,47 +146,49 @@ const Navbar = () => {
             </form>
           </li>
         </ul>
-        <div className="hidden md:block">
-          <form onSubmit={submitHandler}>
+        <div className="flex items-center justify-center">
+          <div className="hidden md:block mr-4">
+            <form onSubmit={submitHandler}>
+              <input
+                type="search"
+                name="search"
+                className={`search-input truncate outline-none px-5 py-1 rounded-sm bg-slate-800 text-base ring-2 focus:ring-4 focus:ring-sky-500 transition-all selection:bg-rose-700 selection:text-rose-300 ${
+                  currentPath === "anime" ||
+                  currentPath === "search-anime" ||
+                  currentPath === ""
+                    ? ""
+                    : currentPath === "manga" || currentPath === "search-manga"
+                    ? ""
+                    : currentPath === "characters" ||
+                      currentPath === "search-character"
+                    ? ""
+                    : "hidden"
+                }`}
+                placeholder={
+                  currentPath === "anime" ||
+                  currentPath === "search-anime" ||
+                  currentPath === ""
+                    ? "Search Anime"
+                    : currentPath === "manga" || currentPath === "search-manga"
+                    ? "Search Manga"
+                    : "Search Character"
+                }
+                autoComplete="off"
+                value={inputValue}
+                onChange={searchFunc}
+              />
+            </form>
+          </div>
+          <div className="relative">
             <input
-              type="search"
-              name="search"
-              className={`search-input truncate outline-none px-5 py-1.5 rounded-full bg-slate-800 text-base ring-2 focus:ring-sky-500 transition-all selection:bg-rose-700 selection:text-rose-300 ${
-                currentPath === "anime" ||
-                currentPath === "search-anime" ||
-                currentPath === ""
-                  ? ""
-                  : currentPath === "manga" || currentPath === "search-manga"
-                  ? ""
-                  : currentPath === "characters" ||
-                    currentPath === "search-character"
-                  ? ""
-                  : "hidden"
-              }`}
-              placeholder={
-                currentPath === "anime" ||
-                currentPath === "search-anime" ||
-                currentPath === ""
-                  ? "Search Anime"
-                  : currentPath === "manga" || currentPath === "search-manga"
-                  ? "Search Manga"
-                  : "Search Character"
-              }
-              autoComplete="off"
-              value={inputValue}
-              onChange={searchFunc}
+              type="checkbox"
+              id="toggle"
+              className="absolute w-[30px] h-[30px] z-[999] opacity-0 cursor-pointer"
             />
-          </form>
-        </div>
-        <div className="relative">
-          <input
-            type="checkbox"
-            id="toggle"
-            className="absolute w-[30px] h-[30px] z-[999] opacity-0 cursor-pointer"
-          />
-          <span className="hamburger-line origin-top-right"></span>
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line origin-bottom-right"></span>
+            <span className="hamburger-line origin-top-right"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line origin-bottom-right"></span>
+          </div>
         </div>
       </div>
     </nav>
