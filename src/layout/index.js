@@ -1,28 +1,24 @@
 import Head from "next/head";
 import PropTypes from "prop-types";
+import { Footer, Navbar } from "../components";
 
 const Layout = ({ children }) => (
   <>
     <Head>
       <title>Weebs</title>
-      <meta name="description" content="Hibike! Euphonium" />
-      <link rel="icon" href="/icon/logo-hibike-euphonium.png" />
+      <meta name="description" content="" />
       <meta charSet="utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta
         name="viewport"
         content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
       />
-      <meta
-        name="keywords"
-        content="Weebs, weebs, myanimelist, info anime, info manga"
-      />
-      <link
-        href="https://fonts.googleapis.com/css?family=Lexend+Deca:100,200,300,regular,500,600,700,800,900"
-        rel="stylesheet"
-      />
     </Head>
-    <main>{children}</main>
+    <div className="min-h-screen flex flex-col justify-between">
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </div>
   </>
 );
 

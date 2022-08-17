@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply !overflow-x-hidden;
+    @apply !overflow-x-hidden bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900;
   }
 
   .nav-detail {
@@ -171,5 +171,4 @@ nav ul.slide {
     opacity: 0;
   }
 }
-/* Loading Animation */
 /* Loading Animation */

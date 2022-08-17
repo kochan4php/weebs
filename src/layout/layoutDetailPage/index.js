@@ -3,7 +3,7 @@ import { NavbarDetail } from "../../components";
 
 // Layout detail page for anime and manga detail page
 const LayoutDetailPage = ({ children, routes }) => (
-  <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 text-white py-3 min-h-screen">
+  <section className="min-w-full bg-gradient-to-tl from-slate-900 via-slate-800 to-slate-900 text-white py-3">
     <NavbarDetail routes={routes} />
     <div>{children}</div>
   </section>
