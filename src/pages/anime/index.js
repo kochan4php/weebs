@@ -11,7 +11,7 @@ import {
   TitleSection,
 } from "../../components";
 import dataDropdownAnime from "../../helper/_dataDropdownAnime";
-import { selectedAnime, titleAnime } from "../../store";
+import { selectedAnime, titleAnime } from "@/store";
 import { For, RenderIfFalse, RenderIfTrue } from "../../utils";
 
 const { getAnimeWithPagination } = action;
@@ -25,7 +25,6 @@ const Anime = () => {
   const [paginate, setPaginate] = useState({});
   const [jikanAnime, setJikanAnime] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
 
   const nextPageHandler = () => {
     setIsLoading(true);
@@ -34,12 +33,14 @@ const Anime = () => {
 
   const getData = async (selectedAnime, page) => {
     const res = await getAnimeWithPagination(selectedAnime, page);
-    if (res !== undefined) {
-      setJikanAnime(await res.data);
-      setPaginate(await res.pagination);
-      setTimeout(() => {
+
+    if (res.status == 200) {
+      if (res.data.success !== false) {
+        console.log(res.data.data);
+        setJikanAnime(res.data.data);
+        setPaginate(res.data.pagination);
         setIsLoading(false);
-      }, 1000);
+      }
     }
   };
 

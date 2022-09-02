@@ -1,10 +1,17 @@
-import JIKAN_API from "../config/Jikan";
+import JIKAN_API from "@/config/Jikan";
+import axios from "axios";
+const { get } = axios;
 
-const getAnimeWithPagination = async (selectedAnime, page = undefined) => {
+const getAnimeWithPagination = async (selectedAnime, page) =>
+  !page
+    ? await get(`${JIKAN_API}${selectedAnime}?limit=20`)
+    : await get(`${JIKAN_API}${selectedAnime}?page=${page}&limit=20`);
+
+const getMangaWithPagination = async (page = undefined) => {
   const request =
     page === undefined
-      ? await fetch(`${JIKAN_API}${selectedAnime}?limit=10`)
-      : await fetch(`${JIKAN_API}${selectedAnime}?page=${page}&limit=10`);
+      ? await fetch(`${JIKAN_API}/top/manga?limit=10`)
+      : await fetch(`${JIKAN_API}/top/manga?page=${page}&?limit=10`);
   if (request.ok) return await request.json();
   else return undefined;
 };
@@ -14,15 +21,6 @@ const getCharactersWithPagination = async (page = undefined) => {
     page === undefined
       ? await fetch(`${JIKAN_API}/top/characters?limit=10`)
       : await fetch(`${JIKAN_API}/top/characters?page=${page}&?limit=10`);
-  if (request.ok) return await request.json();
-  else return undefined;
-};
-
-const getMangaWithPagination = async (page = undefined) => {
-  const request =
-    page === undefined
-      ? await fetch(`${JIKAN_API}/top/manga?limit=10`)
-      : await fetch(`${JIKAN_API}/top/manga?page=${page}&?limit=10`);
   if (request.ok) return await request.json();
   else return undefined;
 };
